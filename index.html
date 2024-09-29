@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>portfolio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <link href="includes/reset.css" rel="stylesheet">
+        <link href="includes/style.css" rel="stylesheet">
+
+        <!-- FONTS -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    </head>
+    
+    <body>
+
+        <div id="instructionModal" class="modal">
+            <div class="modal-content">
+                <h4>Start drawing anywhere on the home page.</h4>
+                <br>
+                <h4>Double-click to clear your drawing.</h4>
+                <br>
+                <h4>Click anywhere to close this pop-up</h4>
+            </div>
+        </div>
+        <script src="scripts/modal.js"></script>
+        
+
+        <div id="coverpage" class="parent-container-center prevent-select">
+            <canvas id="drawingCanvas"></canvas>
+            <script src="scripts/draw.js"></script>
+            <div>
+                <h1 class="titlefx">PORTFOLIO</h1>
+                <h2 class="namefx">TANVI AMRIT</h2>
+            </div>
+        </div>
+
+        <div id="about" class="parent-container-center prevent-select">
+            <p class="in-text-title">
+                hi, <br>
+                i'm a combined degree student passionate about working at the 
+                intersection of art and technology
+                <br> <br>
+                explore my projects 
+                <a href="index.html#projects">here</a> | 
+                <a href="https://github.com/zoyaamrit">github</a> | 
+                <a href=".">CV</a> |
+                <a href="https://www.instagram.com/wall_stories/">instagram</a>
+                
+            </p>
+        </div>
+
+        <div id="scrollDownArrow" class="scroll-arrow down-arrow">↓</div>
+        <div id="scrollRightArrow" class="scroll-arrow right-arrow">→</div>
+        <div id="backArrow" class="back-arrow"> 
+            <a href="index.html"><<</a>
+        </div>
+
+         <div id="projects">
+
+            <div class="project parent-container-center">
+                <div>
+                    <h1><a href="pages/33qs.html">33 questions to fall in love</a></h1>
+                    <h2>art book</h2>
+                </div>
+            </div>
+
+            <div class="project parent-container-center">
+                <div>
+                    <h1><a href="pages/musicality.html">musical(c)ity</a></h1>
+                    <h2>animation project</h2>
+                </div>
+            </div>
+            <div class="project parent-container-center">
+                 <div>
+                    <h1><a href="pages/circle-of-life.html">circle of life</a></h1>
+                    <h2>interactive coding on processing</h2>
+                </div>
+            </div>
+
+            <div class="project parent-container-center">
+                <div>
+                    <h1><a href="pages/ripple.html">ripple</a></h1>
+                    <h2>composite animation</h2>
+                </div>
+            </div>
+
+            <div class="project parent-container-center">
+                <h1>;)</h1>
+            </div>
+
+        </div>
+
+        <div class="about">
+            <a href="index.html#about">about & contact</a>
+        </div>
+
+        <script src="scripts/scroll-arrows.js"></script>
+        
+    </body>
+</html>
