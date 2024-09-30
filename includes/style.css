@@ -19,7 +19,7 @@ canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
-    cursor: url(../imgs/icons8-crayon-64.png); /* Ensure path and image size are correct */
+    cursor: url(../imgs/icons8-crayon-64.png) 20 20, crosshair; /* Ensure path and image size are correct */
     background: transparent;
 }
 
@@ -27,7 +27,7 @@ canvas {
 /* TYPESET */
 h1 {
     font-weight: 400;
-    font-size: 5vw;
+    font-size: 4vw;
 }
 
 
@@ -35,27 +35,27 @@ h2 {
     font-weight: 300;
     font-style: italic;
     font-stretch: expanded;
-    font-size: 5vw;
+    font-size: 4vw;
 }
 
 h3 {
     font-weight: 100;
     font-style: normal;
     font-stretch: expanded;
-    font-size: 2.5vw;
+    font-size: 2vw;
 }
 
 h4 {
     font-weight: inherit;
     font-style: normal;
     font-stretch: expanded;
-    font-size: 3vh;
+    font-size: 2.5vh;
 }
 
 p {
     font-family: "Lato", serif;
     font-weight: 300;
-    font-size: 3vh;
+    font-size: 2vh;
     font-style: normal;
     position: relative;
     text-align: justify;
@@ -70,20 +70,14 @@ p {
 .in-text-title {
     font-family: "Lato", serif;
     font-weight: 400;
-    font-size: 3.5vh;
+    font-size: 3vh;
     font-style: italic;
     position: relative;
     text-align: justify;
     line-height: 2;
     max-width: 50vw;
 }
-/* FOR WEBSITE COVER PAGE */
-.titlefx {
-    letter-spacing: 1rem;
-    font-size: 5rem;
-    padding: 0%;
-}
-
+/* NAME ANIMATION */
 .namefx {    
     animation:
         expand_text 1s ease-in-out 1 forwards, 
@@ -94,7 +88,7 @@ p {
 } 
 
 
-/* PROJECT LISTING SETTINGS */
+/* PROJECT LIST SETTINGS */
 #projects {
     display: flex;
     overflow-x: auto;
@@ -116,6 +110,11 @@ p {
     scroll-snap-align: start;
 }
 
+#wink:hover {
+    animation: spin 1s 1 forwards; 
+    cursor: none;
+}
+
 /* FORMATTING SPECIFICS  */
 .parent-container-center {
     display: grid;
@@ -131,6 +130,7 @@ p {
     -ms-user-select: none;
     user-select: none;
   }
+
 
 /* ANIMATION */
 @keyframes expand_text {
@@ -196,6 +196,15 @@ p {
         transform: translate(50, 0);}
 }
 
+@keyframes spin {
+    from {
+        transform: rotate(0deg); 
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 
 /* LINK STYLES */
 a {
@@ -210,10 +219,11 @@ a:visited {
 a:hover {
     text-decoration: underline;
     font-style: italic;
-    color: #217082;
+    color: #7AAB5F;
 }
 
-/* ARROWS */
+
+/* ARROWS & BUTTONS */
 .scroll-arrow {
     position: fixed;
     font-size: 2rem;
@@ -243,7 +253,7 @@ a:hover {
     left: 20px; 
     transition: background-color 0.3s, transform 0.3s;
     padding: 5px;
-    font-size: 3.5vh;
+    font-size: 2.5vh;
     z-index: 3;
     text-decoration: none;
 }
@@ -258,7 +268,15 @@ a:hover {
     flex-direction: column;
     font-weight: 300;
     font-stretch: expanded;
-    font-size: 3.5vh;
+    font-size: 2.5vh;
+    z-index: 3;
+}
+
+.clear {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 5px;
     z-index: 3;
 }
 
