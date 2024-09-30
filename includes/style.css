@@ -19,7 +19,7 @@ canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
-    cursor: url(../imgs/icons8-crayon-64.png) 20 20, crosshair; /* Ensure path and image size are correct */
+    cursor: url(../imgs/icons8-crayon-64.png) 5 25, crosshair; /* Ensure path and image size are correct */
     background: transparent;
 }
 
@@ -280,31 +280,6 @@ a:hover {
     z-index: 3;
 }
 
-/* INSTRUCTION */
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    filter: none;
-    background-color: rgb(0, 0, 0, 0.8);
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 60%;
-    text-align: center;
-    font-weight: 300;
-    color: #FFFFFC;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
 /* IMAGE SETTINGS */
 img {
