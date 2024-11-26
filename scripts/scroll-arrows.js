@@ -13,8 +13,7 @@ document.addEventListener('scroll', function () {
 
     if (projectsDivPosition <= windowHeight / 2) {
         scrollRightArrow.style.display = 'block';
-        scrollRightArrow.style.animation = 'slide-in-right 1s forwards';
     } else {
-        scrollRightArrow.style.animation = 'slide-out-right 1s forwards';
+        scrollRightArrow.style.display = 'none';
     }
 });

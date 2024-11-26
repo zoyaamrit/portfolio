@@ -131,6 +131,10 @@ p {
     user-select: none;
   }
 
+/* #scrollRightArrow {
+    animation: bounceRight 1s infinite forwards;
+} */
+
 
 /* ANIMATION */
 @keyframes expand_text {
@@ -162,6 +166,15 @@ p {
     }
     50% {
         transform: translate(-50%, 20px);
+    }
+}
+
+@keyframes bounceRight {
+    0%, 100% {
+        transform: translate(0, -50%);
+    }
+    50% {
+        transform: translate(20px, -50%);
     }
 }
 
@@ -245,6 +258,7 @@ a:hover {
     left: 50%;
     transform: translateY(-50%);
     display: none; 
+    animation: bounceRight 1.5s infinite;
 }
 
 .back-arrow {
