@@ -10,6 +10,7 @@ function resizeCanvas() {
 
 }
 function drawRandomShapes() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     const numberOfShapes = 20; 
 
     for (let i = 0; i < numberOfShapes; i++) {
