@@ -1,3 +1,10 @@
+:root {
+    --white:#f5f5f5; 
+    --blue:#2E4057;
+    --whiteAccent: #FEFAEB;
+}
+
+
 /* GENERAL */
 html {
     margin: 0;
@@ -6,20 +13,32 @@ html {
 }
 
 body {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     scroll-snap-type: y mandatory;
-    background-color: #FFFFFB;
+    /* background-color: var(--white); */
+    background: none;
     font-family: "Lato", sans-serif;
+    /* color: #FFFFFB; */
+
+}
+#bg {
+    position: absolute;
+    z-index: -1;
+    /* top: 0; */
+    /* left: 0; */
+    /* width: 100vw; */
+    height: 100vh;
 
 }
 
-canvas {
-    position: absolute;
+#canvas-container {
+    position: fixed;
+    z-index: -10;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    cursor: url(../imgs/icons8-crayon-64.png) 5 25, crosshair; /* Ensure path and image size are correct */
+    cursor: url(../imgs/icons8-crayon-64.png) 5 25, crosshair;/* Ensure path and image size are correct */
     background: transparent;
 }
 
@@ -27,7 +46,7 @@ canvas {
 /* TYPESET */
 h1 {
     font-weight: 400;
-    font-size: 4vw;
+    font-size: 5vh;
 }
 
 
@@ -35,14 +54,14 @@ h2 {
     font-weight: 300;
     font-style: italic;
     font-stretch: expanded;
-    font-size: 4vw;
+    font-size: 5vh;
 }
 
 h3 {
     font-weight: 100;
     font-style: normal;
     font-stretch: expanded;
-    font-size: 2vw;
+    font-size: 1vw;
 }
 
 h4 {
@@ -110,10 +129,6 @@ p {
     scroll-snap-align: start;
 }
 
-#wink:hover {
-    animation: spin 1s 1 forwards; 
-    cursor: none;
-}
 
 /* FORMATTING SPECIFICS  */
 .parent-container-center {
@@ -131,9 +146,119 @@ p {
     user-select: none;
   }
 
-/* #scrollRightArrow {
-    animation: bounceRight 1s infinite forwards;
-} */
+
+.parent-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+#sidebar {
+    width: 20vw;
+    min-width: 10vw;
+
+    overflow-y: auto;
+    padding: 20px;
+    place-items: center;
+    display: grid;
+
+
+}
+
+#content {
+    flex: 1;
+}
+
+/* Mobile styles */
+ @media (max-width: 768px) {
+            .parent-container {
+                flex-direction: column;
+            }
+
+            #sidebar {
+                width: 100%;
+                min-width: 100%;
+                height: auto;
+                max-height: 15vh;
+                /* border-right: none; */
+                /* border-bottom: 2px solid #ddd; */
+                padding: 15px;
+            }
+
+            #content {
+                height: 60vh;
+            }
+
+            .project-item {
+                padding: 15px;
+                margin-bottom: 8px;
+            }
+
+            .project-item h1 {
+                font-size: 1.2em;
+            }
+
+            .project-item h2 {
+                font-size: 0.9em;
+            }
+        }
+
+#content-frame {
+    width: 100%;
+    height: 90%;
+    border: none;
+}
+
+.project-item {
+    padding: 20px;
+    margin-bottom: 10px;
+    /* background: var(--white); */
+    /* border-radius: 8px; */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.project-item:hover {
+    /* background-color: var(--whiteAccent); */
+    transform: translateX(5px);
+    font-style: italic;
+    border-color: #000;
+
+}
+
+.project-item.active {
+    /* background-color: var(--whiteAccent); */
+    font-style: italic;
+    text-decoration: underline;
+
+}
+
+.project-item h1 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.project-item h2 {
+    font-size: 1em;
+    color: #666;
+    font-weight: normal;
+}
+
+#wink {
+    text-align: center;
+    font-size: 2em;
+    user-select: none;
+}
+
+#placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 2rem;
+}
 
 
 /* ANIMATION */
@@ -143,19 +268,19 @@ p {
         font-size: inherit;
     }
     100% {
-        letter-spacing: 3vw;
-        font-size: 10vw;
+        letter-spacing: 2vw;
+        font-size: 3vw;
     }
 }
 
 @keyframes shrink_text_name {
     0% {
-        letter-spacing: 3vw;
-        font-size: 10vw;
+        letter-spacing: 2vw;
+        font-size: 3vw;
     }
     100% {
         letter-spacing: 0;
-        font-size: 5vw;
+        font-size: 3vw;
     }
 }
 
@@ -219,6 +344,11 @@ p {
 }
 
 
+#wink:hover {
+    animation: spin 1s 1 forwards; 
+    cursor: none;
+}
+
 /* LINK STYLES */
 a {
     color: #000000;
@@ -226,13 +356,13 @@ a {
 }
 
 a:visited {
-    color: #53783F;
+    color: #2E4057;
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
     font-style: italic;
-    color: #7AAB5F;
+    color: #2E4057;
 }
 
 
@@ -297,7 +427,7 @@ a:hover {
 
 /* IMAGE SETTINGS */
 img {
-    height: 80vh;
+    height: 60vh;
     width: auto;
     max-width: 100%;
     max-height: 100%;

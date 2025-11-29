@@ -1,95 +1,124 @@
-const canvas = document.getElementById('drawingCanvas');
-const ctx = canvas.getContext('2d');
+let isDrawing = false;
+let shapes = [];
 
-function resizeCanvas() {
-    const imageData = ctx.getImageData(0, 0, 2 * canvas.width, canvas.height);
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    ctx.putImageData(imageData, 0, 0);
-
-}
-function drawRandomShapes() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const numberOfShapes = 20; 
+function generateRandomShapes() {
+    shapes = [];
+    const numberOfShapes = 20;
 
     for (let i = 0; i < numberOfShapes; i++) {
-        const shapeType = Math.floor(Math.random() * 3);
+        const shapeType = floor(random(3));
+        const x = random(width);
+        const y = random(height);
+        const size = random(10, 60);
+        const rotation = random(TWO_PI);
+        const col = getRandomColor();
 
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const size = Math.random() * 50 + 10;
-        const rotation = Math.random() * Math.PI * 2;
+        // for motion
+        const vx = random(-0.2, 0.2);
+        const vy = random(-0.2, 0.2);
 
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(rotation);
+        shapes.push({ shapeType, x, y, size, rotation, col, vx, vy});
 
-        ctx.beginPath();
 
-        switch (shapeType) {
+    }
+}
+
+// generateRandomShapes();
+
+function setup() {
+    let canvas = createCanvas(windowWidth, windowHeight);
+    canvas.parent('canvas-container');
+    generateRandomShapes();
+    redrawShapes();
+}
+
+function draw() {
+   
+  
+
+     for (let shape of shapes) {
+        shape.x += shape.vx;
+        shape.y += shape.vy;
+    }
+
+    //   background(255);
+    redrawShapes();
+
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    redrawShapes();
+}
+
+// function mousePressed() {
+//     if (mouseX >= 0 && mouseX <= width && 
+//         mouseY >= 0 && mouseY <= height) {
+//         isDrawing = true;
+//     }
+// }
+
+// function mouseDragged() {
+//     if (isDrawing) {
+//         stroke(0);
+//         strokeWeight(0.5);
+//         line(pmouseX, pmouseY, mouseX, mouseY);
+//     }
+// }
+
+// function mouseReleased() {
+//     isDrawing = false;
+// }
+
+function doubleClicked() {
+    clear(); 
+    generateRandomShapes();
+    redrawShapes();
+}
+
+
+
+function redrawShapes() {
+    background("#f5f5f5");
+    
+    for (let shape of shapes) {
+        push();
+        translate(shape.x, shape.y);
+        rotate(shape.rotation);
+        stroke(shape.col);
+        noFill();
+
+        switch (shape.shapeType) {
             case 0:
-                ctx.arc(0, 0, size, 0, Math.PI * 2);
-                ctx.strokeStyle = getRandomColor();
-                ctx.lineWidth = 2;
-                ctx.stroke();
+                strokeWeight(3);
+                circle(0, 0, shape.size * 2);
                 break;
             case 1:
-                ctx.strokeStyle = getRandomColor();
-                ctx.lineWidth = 1;
-                ctx.strokeRect(-size / 2, -size / 2, size, size);
+                strokeWeight(3);
+                rectMode(CENTER);
+                rect(0, 0, shape.size, shape.size);
                 break;
             case 2:
-                ctx.moveTo(0, -size / 2);
-                ctx.lineTo(size / 2, size / 2);
-                ctx.lineTo(-size / 2, size / 2);
-                ctx.closePath();
-                ctx.strokeStyle = getRandomColor();
-                ctx.lineWidth = 2;
-                ctx.stroke();
+                strokeWeight(3);
+                triangle(0, -shape.size / 2, 
+                        shape.size / 2, shape.size / 2, 
+                        -shape.size / 2, shape.size / 2);
                 break;
         }
 
-        ctx.restore();
+        pop();
     }
 }
 
 function getRandomColor() {
-    return `rgb(${200}, 
-                              ${Math.floor(Math.random() * 256)}, 
-                              ${Math.floor(Math.random() * 256)})`;;
+    return color(200, 
+                floor(random(256)), 
+                floor(random(256)), 80);
 }
 
-resizeCanvas(); 
-drawRandomShapes();
 
-window.addEventListener('resize', resizeCanvas);
 
-let isDrawing = false;
-
-canvas.addEventListener('mousedown', (e) => {
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.clientX, e.clientY);
-});
-
-canvas.addEventListener('mousemove', (e) => {
-    if (isDrawing) {
-    ctx.lineTo(e.clientX, e.clientY);
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
-    }
-});
-
-canvas.addEventListener('mouseup', () => {
-    isDrawing = false;
-});
-
-canvas.addEventListener('mouseleave', () => {
-    isDrawing = false;
-});
-
-canvas.addEventListener('dblclick', () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
-
+// function doubleClicked() {
+//     clear()
+// }

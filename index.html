@@ -14,23 +14,26 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+
 
     </head>
     
     <body>
+
+        <div id="canvas-container"></div>
+        <script src="scripts/draw.js"></script>
+
         <div id="coverpage"> 
-            <p class="clear">double click to clear the drawing</p>
             <div class="parent-container-center prevent-select">
-                <canvas id="drawingCanvas"></canvas>
-                <script src="scripts/draw.js"></script>
-                <div>
-                    <h1>PORTFOLIO</h1>
-                    <h2 class="namefx">TANVI AMRIT</h2>
-                </div>
+                <h1 class="namefx">ZOYA AMRIT</h1>
+                
             </div>
         </div>
 
         <div id="about" class="parent-container-center prevent-select">
+                        <!-- <img id="bg" src="imgs/Untitled_Artwork.gif"/> -->
+
             <p class="in-text-title">
                 hi, <br>
                 i'm a combined degree student passionate about working at the 
@@ -43,20 +46,59 @@
                 <a href="https://www.instagram.com/wall_stories/"  target="_blank" rel="noopener noreferrer">instagram</a>
                 
             </p>
+
+            <p> double click to regenerate background :)</p>
         </div>
 
         <div id="scrollDownArrow" class="scroll-arrow down-arrow">↓</div>
-        <div id="scrollRightArrow" class="scroll-arrow right-arrow">→</div>
-        <div id="backArrow"> 
-            <a class="back-arrow" onclick=drawRandomShapes()><<</a>
-        </div>
 
+        <div id="projects" class="parent-container">
+                <div id="sidebar">
+                    <div> 
+                    <div class="project-item" data-url="pages/myth.html">
+                        <h1>mythical time travel</h1>
+                        <h2>interactive website</h2>
+                    </div>
+
+                    <div class="project-item" data-url="pages/33qs.html">
+                        <h1>33 questions to fall in love</h1>
+                        <h2>art book</h2>
+                    </div>
+
+                    <div class="project-item" data-url="pages/textile.html">
+                        <h1>textile</h1>
+                        <h2>DADA inspired web art</h2>
+                    </div>
+
+                    <div class="project-item" data-url="pages/musicality.html">
+                        <h1>musical(c)ity</h1>
+                        <h2>animation project</h2>
+                    </div>
+
+                    <div class="project-item" data-url="pages/ripple.html">
+                        <h1>ripple</h1>
+                        <h2>composite animation</h2>
+                    </div>
+                    </div>
+
+                    
+                </div>
+
+                <div id="content">
+                    <div id="placeholder">
+                        <h1 id="wink">;)</h1>
+                    </div>
+                    <iframe id="content-frame" style="display: none;"></iframe>
+                </div>
+        </div>
+<!--         
          <div id="projects">
 
             <div id="myth" class="project parent-container-center">
                 <div>
                     <h1><a href="pages/myth.html">mythical time travel</a></h1>
-                    <h2>interactive website </h2>
+                    <h2>interactive website</h2>
+            
                 </div>
             </div>
 
@@ -94,11 +136,10 @@
                 <h1 id="wink" class="prevent-select">;)</h1>
             </div>
 
-        </div>
+            
+        </div> -->
 
-        <a class="about" href="index.html#about">about & contact</a>
-
+      
         <script src="scripts/scroll-arrows.js"></script>
-        
     </body>
 </html>

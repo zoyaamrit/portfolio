@@ -17,3 +17,25 @@ document.addEventListener('scroll', function () {
         scrollRightArrow.style.display = 'none';
     }
 });
+
+
+ const projectItems = document.querySelectorAll('.project-item[data-url]');
+        const contentFrame = document.getElementById('content-frame');
+        const placeholder = document.getElementById('placeholder');
+
+        projectItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const url = this.getAttribute('data-url');
+                
+                // Remove active class from all items
+                projectItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Load content in iframe
+                contentFrame.src = url;
+                placeholder.style.display = 'none';
+                contentFrame.style.display = 'block';
+            });
+        });
