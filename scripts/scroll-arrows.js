@@ -39,3 +39,28 @@ document.addEventListener('scroll', function () {
                 contentFrame.style.display = 'block';
             });
         });
+
+function resetToPlaceholder() {
+    projectItems.forEach(i => i.classList.remove('active'));
+    contentFrame.style.display = 'none';
+    contentFrame.src = ''; // Clear iframe source
+    placeholder.style.display = 'flex';
+}
+
+wink.addEventListener('click', function(e) {
+    e.stopPropagation();
+    resetToPlaceholder();
+});
+
+const titleLinks = document.querySelector('.clickable');
+if (titleLinks) {
+    titleLinks.style.cursor = 'pointer';
+    titleLinks.addEventListener('mousedown', function(e) {
+        // Only reset if clicking the container, not the links themselves
+        if (e.target === titleLinks) {
+            e.preventDefault();
+            e.stopPropagation();
+            resetToPlaceholder();
+        }
+    });
+}
