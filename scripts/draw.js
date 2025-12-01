@@ -80,7 +80,7 @@ function doubleClicked() {
 
 
 function redrawShapes() {
-    background("#f5f5f5");
+    background(255);
     
     for (let shape of shapes) {
         push();

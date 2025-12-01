@@ -47,12 +47,13 @@ function resetToPlaceholder() {
     placeholder.style.display = 'flex';
 }
 
-wink.addEventListener('click', function(e) {
+document.querySelector('.align-left').addEventListener('click', function(e) {
     e.stopPropagation();
     resetToPlaceholder();
+
 });
 
-const titleLinks = document.querySelector('.clickable');
+const titleLinks = document.querySelector('.namefx');
 if (titleLinks) {
     titleLinks.style.cursor = 'pointer';
     titleLinks.addEventListener('mousedown', function(e) {
@@ -64,3 +65,4 @@ if (titleLinks) {
         }
     });
 }
+
