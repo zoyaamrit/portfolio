@@ -300,7 +300,7 @@ img {
     height: 80vh;
     width: auto;
     max-width: 100%;
-    max-height: 100%;
+    /* max-height: 100%; */
     padding: 10%;
 }
 
@@ -329,3 +329,27 @@ img {
 }
 
 
+
+/* GIF INTRO */
+#gif-intro {
+    position: fixed;
+    /* width: 100vw; */
+    /* inset: 0; */
+    z-index: 10;
+    /* background: #000; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease;
+}
+
+#gif-intro img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+#gif-intro.fade-out {
+    display: none;
+    pointer-events: none;
+}
