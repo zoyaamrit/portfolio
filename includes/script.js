@@ -201,15 +201,15 @@ function buildGrid() {
 
 function buildProjectRow(p, idx) {
 
-    const positions = [0, 1, 2, 3];
+    const positions = [0, 1, 2];
     shuffle(positions);
 
-    const cells = [null, null, null, null];
+    const cells = [null, null, null];
 
-    cells[positions[0]]   = makeImageCell(p);
+    cells[positions[0]] = makeImageCell(p);
     cells[positions[1]] = makeTitleCell(p, idx);
     cells[positions[2]] = makeQuoteCell(p)
-    cells[positions[3]] = makeBlankCell();
+    // cells[positions[3]] = makeBlankCell();
     return cells;
 }
 
@@ -241,7 +241,7 @@ function makeCell(cls, project) {
   const div = document.createElement('div');
   div.className = 'grid-cell ' + cls;
   if (project) {
-    div.classList.add('clickable');
+    // div.classList.add('clickable');
     div.dataset.project = project.id;
     div.addEventListener('click', () => openModal(project));
   }
@@ -268,25 +268,24 @@ function makeImageCellExtra(i) {
 }
 
 function makeTitleCell(p, idx) {
-  const div = makeCell('cell-title', p);
+  const div = makeCell('cell-title clickable', p);
   div.innerHTML = `
     <div class="proj-num">Project ${String(idx + 1).padStart(2,'0')}</div>
     <h2>${p.title}</h2>
     <div class="sub">${p.sub}</div>
-    <div class="tags">${p.tags.slice(0,2).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    <div class="tags">${p.tags.slice(0,3).map(t => `<span class="tag">${t}</span>`).join('')}</div>
   `;
   return div;
 }
 
 
-
 function makeBlankCell() {
     const div = document.createElement('div');
-    if (Math.random() < 0.7) {
+    // if (Math.random() < 0.7) {
         div.className = 'grid-cell cell-blank';
-    } else {
-        div.className = 'grid-cell cell-blank-acc';
-    } 
+    // } else {
+    //     div.className = 'grid-cell cell-blank-acc';
+    // } 
     return div;
 }
 

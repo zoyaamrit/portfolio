@@ -149,7 +149,7 @@ min-height: 100vh;
 .grid-wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 5px;
 }
 
 .grid-cell {
@@ -197,6 +197,7 @@ min-height: 100vh;
 
 /* title cells */
 .cell-title {
+    grid-column: span 2;
     padding: 28px;
     display: flex;
     flex-direction: column;
@@ -411,36 +412,36 @@ min-height: 100vh;
     text-align: right;
 }
 
-  /* ── MODAL ── */
-  #modal-overlay {
+/* ── MODAL ── */
+#modal-overlay {
     position: fixed; inset: 0;
     z-index: 500;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
     transition: opacity 0.35s ease;
-  }
-  #modal-overlay.open { opacity: 1; pointer-events: all; }
+}
+#modal-overlay.open { opacity: 1; pointer-events: all; }
 
-  #modal-blur-bg {
+#modal-blur-bg {
     position: absolute; inset: 0;
     backdrop-filter: blur(12px);
     background: rgba(26,26,24,0.4);
-  }
+}
 
-  #modal-box {
-    position: relative;
-    z-index: 1;
-    background: var(--bg);
-    width: 65vw;
-    max-width: calc(100vw - 60px);
-    max-height: 80vh;
-    overflow-y: auto;
-    transform: translateY(24px) scale(0.97);
-    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
-  }
-  #modal-overlay.open #modal-box { transform: translateY(0) scale(1); }
+#modal-box {
+position: relative;
+z-index: 1;
+background: var(--bg);
+width: 65vw;
+max-width: calc(100vw - 60px);
+max-height: 80vh;
+overflow-y: auto;
+transform: translateY(24px) scale(0.97);
+transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+#modal-overlay.open #modal-box { transform: translateY(0) scale(1); }
 
-  #modal-close {
+#modal-close {
     position: absolute; top: 40px; right: 40px;
     width: 36px; height: 36px;
     background: none; border: 1px solid var(--accent);
@@ -450,96 +451,96 @@ min-height: 100vh;
     color: var(--accent);
     z-index: 2;
     transition: background 0.2s, color 0.2s;
-  }
-  #modal-close:hover { background: var(--accent); color: var(--bg); }
+}
+#modal-close:hover { background: var(--accent); color: var(--bg); }
 
-  .modal-hero {
+.modal-hero {
     width: 100%; height: 240px;
     object-fit: cover;
     display: block;
     filter: grayscale(20%);
-  }
-  .modal-hero-placeholder {
+}
+.modal-hero-placeholder {
     width: 100%; height: 240px;
     background: var(--ink);
     display: flex; align-items: center; justify-content: center;
-  }
+}
 
-  .modal-body { padding: 36px 40px 48px; }
+.modal-body { padding: 36px 40px 48px; }
 
-  .modal-cat {
+.modal-cat {
     font-size: 10px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 10px;
-  }
-  .modal-title {
+}
+.modal-title {
     font-family: 'Playfair Display', serif;
     font-size: 34px;
     font-weight: 400;
     line-height: 1.15;
     margin-bottom: 8px;
-  }
-  .modal-sub {
+}
+.modal-sub {
     font-size: 11px;
     letter-spacing: 0.08em;
     color: var(--mid);
     margin-bottom: 24px;
     text-transform: uppercase;
-  }
-  .modal-desc {
+}
+.modal-desc {
     font-size: 13px;
     line-height: 1.9;
     color: var(--ink);
     margin-bottom: 28px;
-  }
-  .modal-tags {
+}
+.modal-tags {
     display: flex; flex-wrap: wrap; gap: 8px;
     margin-bottom: 28px;
-  }
-  .modal-tag {
+}
+.modal-tag {
     font-size: 10px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 4px 12px;
     border: 1px solid #e0e0e0;
     color: var(--ink);
-  }
-  .modal-meta {
+}
+.modal-meta {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     border-top: 1px solid #f0f0f0;
     padding-top: 24px;
-  }
-  .modal-meta-item label {
+}
+.modal-meta-item label {
     display: block;
     font-size: 9px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--mid);
     margin-bottom: 4px;
-  }
-  .modal-meta-item span {
+}
+.modal-meta-item span {
     font-size: 13px;
     color: var(--ink);
-  }
+}
 
-  /* Scrollbar */
-  #modal-box::-webkit-scrollbar { width: 4px; }
-  #modal-box::-webkit-scrollbar-track { background: var(--light); }
-  #modal-box::-webkit-scrollbar-thumb { background: var(--mid); }
+/* Scrollbar */
+#modal-box::-webkit-scrollbar { width: 4px; }
+#modal-box::-webkit-scrollbar-track { background: var(--light); }
+#modal-box::-webkit-scrollbar-thumb { background: var(--mid); }
 
-  /* ── MODAL TABS ── */
-  .modal-tabs {
+/* ── MODAL TABS ── */
+.modal-tabs {
     display: flex;
     border-bottom: 1px solid #f0f0f0;
     padding: 0 40px;
     background: #fff;
     position: sticky; top: 0; z-index: 3;
-  }
-  .modal-tab {
+}
+.modal-tab {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.12em;
@@ -552,50 +553,50 @@ min-height: 100vh;
     margin-right: 28px;
     cursor: none;
     transition: color 0.2s, border-color 0.2s;
-  }
-  .modal-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
-  .modal-tab:hover { color: var(--ink); }
+}
+.modal-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+.modal-tab:hover { color: var(--ink); }
 
-  /* iframe panel */
-  .modal-iframe-panel { display: none; }
-  .modal-iframe-panel.active { display: block; }
-  .modal-detail-panel { display: none; }
-  .modal-detail-panel.active { display: block; }
+/* iframe panel */
+.modal-iframe-panel { display: none; }
+.modal-iframe-panel.active { display: block; }
+.modal-detail-panel { display: none; }
+.modal-detail-panel.active { display: block; }
 
-  .modal-iframe-wrap {
+.modal-iframe-wrap {
     position: relative;
     width: 100%;
     background: #111;
-  }
-  /* default 16:9, but taller for websites */
-  .modal-iframe-wrap.ratio-video { padding-bottom: 56.25%; }
-  .modal-iframe-wrap.ratio-site  { height: 520px; }
+}
+/* default 16:9, but taller for websites */
+.modal-iframe-wrap.ratio-video { padding-bottom: 56.25%; }
+.modal-iframe-wrap.ratio-site  { height: 520px; }
 
-  .modal-iframe-wrap iframe {
+.modal-iframe-wrap iframe {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     border: none;
     display: block;
-  }
-  .modal-iframe-wrap.ratio-site iframe {
+}
+.modal-iframe-wrap.ratio-site iframe {
     position: static;
     width: 100%; height: 100%;
-  }
-  .modal-iframe-wrap.ratio-site {
+}
+.modal-iframe-wrap.ratio-site {
     position: relative;
     overflow: hidden;
-  }
+}
 
-  .modal-iframe-fallback {
+.modal-iframe-fallback {
     padding: 32px 40px;
     display: flex; align-items: center; gap: 14px;
     background: var(--light);
-  }
-  .modal-iframe-fallback p {
+}
+.modal-iframe-fallback p {
     font-size: 12px; color: var(--mid); flex: 1;
     line-height: 1.6;
-  }
-  .modal-open-ext {
+}
+.modal-open-ext {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.1em;
@@ -606,14 +607,14 @@ min-height: 100vh;
     padding-bottom: 2px;
     white-space: nowrap;
     flex-shrink: 0;
-  }
+}
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
     #grid-view { padding: 20px; }
     .grid-wrapper {
-      grid-template-columns: repeat(1, 1fr);
-      gap: 4px;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 4px;
     }
 
     .cell-blank,
@@ -625,32 +626,31 @@ min-height: 100vh;
     .cell-stat { display: none; }
 
     .cell-image.non-proj-img {
-      display: flex;
-      filter: grayscale(0%); 
+        display: flex;
+        filter: grayscale(0%); 
     }
-
-    /* about spans full width */
-    .cell-about { grid-column: span 2; }
 
     header { padding: 20px 24px; }
     nav { gap: 20px; }
 
     #list-view { padding: 20px; }
     .list-header, .list-row {
-      grid-template-columns: 40px 1fr 100px;
+        grid-template-columns: 40px 1fr 100px;
     }
     .lr-year { display: none; }
-  
+
     .cell-about, 
     .cell-portrait,
-    .non-proj-img { grid-column: span 1;}
-  }
+    .non-proj-img, 
+    .cell-title{ grid-column: span 1;}
+}
 
-  /* cell enter animation */
-  .grid-cell {
+/* cell enter animation */
+.grid-cell {
     animation: cellFadeIn 0.5s ease both;
-  }
-  @keyframes cellFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+}
+
+@keyframes cellFadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to   { opacity: 1; transform: translateY(0); }
+}
