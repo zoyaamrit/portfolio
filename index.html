@@ -1,110 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <head>
-        <title>Tanvi Amrit | Portfolio</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link href="includes/style.css" rel="stylesheet">
+  </head>
+<body>
 
+    <div id="cursor"><span id="cursor-label">:)</span></div>
 
-        <link href="includes/reset.css" rel="stylesheet">
-        <link href="includes/style.css" rel="stylesheet">
+    <div id="loader">
+        <div id="loader-name" aria-label="tanvi amrit"></div>
+    </div>
 
-        <!-- FONTS -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <header>
+        <a href="#about" id="name-logo">tanvi amrit</a>
+        <nav>
+        <a href="#about" id="nav-about">About</a>
+        <a href="#projects" id="nav-projects">Projects</a>
+        </nav>
+    </header>
 
+  <main>
+    <!-- Grid View -->
+    <div id="grid-view">
+      <div class="grid-wrapper" id="grid-wrapper">
+        <!-- Injected by script -->
+      </div>
+    </div>
 
-    </head>
-    
-    <body>
-
-        <!-- background -->
-        <div id="canvas-container"></div>
-        <script src="scripts/draw.js"></script>
-
-        <!-- name -->
-        <h1 class="namefx">TANVI AMRIT</h1>
-        <!-- <img src="imgs/ezgif-30dd5f622cc88a64.gif"> -->
-
-
-        <!-- links -->
-        <p class="subtitle"> 
-        <a href="https://github.com/zoyaamrit"  target="_blank" rel="noopener noreferrer">GITHUB</a> | 
-        <a href="https://drive.google.com/file/d/1pXzDk3a9wtenwQJrCU9Fqc8mO8zOGJra/view?usp=sharing"  target="_blank" rel="noopener noreferrer">CV</a> |
-        <a href="https://www.instagram.com/wall_stories/"  target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
-        </p> 
-
-                    
-        
-
-        <div class="project-preview">
-
-            <div id="sidebar">
-
-                <div> 
-                    <p class="align-left">EXPLORE WORKS</p>
-
-                    <div class="project-item" data-url="pages/ripple.html">
-                        <h1>ripple</h1>
-                        <h2>interactive animation</h2>
-                    </div>
-
-                    <div class="project-item" data-url="pages/lyrics.html">
-                        <h1>strange new places</h1>
-                        <h2>animated music video</h2>
-                    </div>
-                    
-
-                    <div class="project-item" data-url="pages/myth.html">
-                        <h1>mythical time travel</h1>
-                        <h2>interactive website</h2>
-                    </div>
-
-                    <div class="project-item" data-url="pages/33qs.html">
-                        <h1>33 answers to fall in love</h1>
-                        <h2>art book</h2>
-                    </div>
-
-                    <div class="project-item" data-url="pages/textile.html">
-                        <h1>textile</h1>
-                        <h2>DADA inspired web art</h2>
-                    </div>
-
-                    
-
-                  
-                </div>
-
-            </div>
-
-            <div id="content">
-                <div id="placeholder">
-                    <div>
-
-                        <p class=" in-text-title">
-                        Hi, <br>
-
-                        I'm a combined degree student of computer science and fine arts, passionate 
-                        about working at the intersection of art and technology. <br>
-                        My projects explore digital experiences, animation, storytelling and interactive installation.  
-                        
-                       
-                        <br>
-                    </p>
-
-                    <p class="description"> p.s. double click to regenerate background</p>
-
-                    </div>
-                    
-                </div>
-                <iframe id="content-frame" style="display: none;"></iframe>
-            </div>
+    <!-- List View -->
+    <div id="list-view">
+      <div class="list-header">
+        <span>No.</span>
+        <span>Project</span>
+        <span>Type</span>
+      </div>
+      <div id="list-rows">
+        <!-- Injected by script -->
         </div>
+    </div>
+  </main>
 
-      
-        <script src="scripts/scroll-arrows.js"></script>
-    </body>
+  <!-- Modal -->
+  <div id="modal-overlay" role="dialog" aria-modal="true">
+    <button id="modal-close" aria-label="Close">✕</button>
+    <div id="modal-blur-bg"></div>
+    <div id="modal-box">
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="includes/script.js"></script>
+</body>
 </html>
