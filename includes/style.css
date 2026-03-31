@@ -70,11 +70,11 @@ header {
     font-size: 18px;
     letter-spacing: 0.02em;
     color: var(--ink);
-    opacity: 0;
+    display: none;
     transition: opacity 0.4s;
     text-decoration: none;
 }
-#name-logo.visible { opacity: 1; }
+#name-logo.visible { display: block; }
 
 
 

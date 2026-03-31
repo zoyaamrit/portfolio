@@ -182,6 +182,8 @@ function buildGrid() {
     portraitCell.innerHTML = `<img src="imgs/cafe.gif" alt="Portrait">`;
     wrapper.appendChild(portraitCell);
 
+    let img_id = 0; 
+
 
     // PROJECT ROWS
     PROJECTS.forEach((p, idx) => {
@@ -189,8 +191,9 @@ function buildGrid() {
         cells.forEach(c => wrapper.appendChild(c));
 
         if((idx - 1) % 2 == 0) {
-            cells2 = buildInterruptRow(idx);
+            cells2 = buildInterruptRow(img_id);
             cells2.forEach(c => wrapper.appendChild(c));
+            img_id = img_id + 1; 
 
         }
     });
@@ -453,6 +456,8 @@ document.getElementById('nav-projects').addEventListener('click', (e) => {
     currentView = 'grid';
   }
 });
+
+
 
 document.getElementById('nav-about').addEventListener('click', (e) => {
   e.preventDefault();
