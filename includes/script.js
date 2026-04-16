@@ -2,9 +2,9 @@
   const ME = {
     name: "tanvi amrit",
     tagline: "student of computer science and fine arts.",
-    bio: "I'm passionate about working at the intersection of art and technology. My projects explore digital experiences, animation, storytelling and interactive installation",
+    bio: "I'm passionate about working at the intersection of art and technology. My projects explore digital experiences, animation, storytelling and interactive installation.",
     links: [
-        { label: "Email", href: "tanviamrit03@gmail.com" },
+        { label: "Email", href: "mailto:tanviamrit03@gmail.com" },
         { label: "GitHub", href: "https://github.com/zoyaamrit" },
         { label: "Resume", href: "https://drive.google.com/file/d/1pXzDk3a9wtenwQJrCU9Fqc8mO8zOGJra/view?usp=sharing" },
         { label: "Instagram", href: "https://www.instagram.com/wall_stories/"}
@@ -23,7 +23,7 @@ const PROJECTS = [
         img: "imgs/waves.gif",
         links: [
             {label: "Preview", url:"https://editor.p5js.org/zoyaa/full/kvEVUgxob"}, 
-            {label: "View Video", url: "    https://player.vimeo.com/video/1150592682?h=497ca02101"}],
+            {label: "View Video", url: "https://player.vimeo.com/video/1150592682?h=497ca02101"}],
         role: "Designer and Programmer",
         duration: "4 months",
         desc: " This began as animation, built by compositing multiple 12-24 frame loops into a coherent narrative. I then converted the animation into an interactive piece, where the user could compose music by clicking on the screen, and creating an environment for the character.  ",
@@ -170,9 +170,11 @@ function buildGrid() {
     // about me cell   
     const aboutCell = makeCell('cell-about', null);
     aboutCell.innerHTML = `
-        <div class="about-label">About</div>
+        <div class="about-label">About Me</div>
         <h1>${ME.tagline}</h1>
         <p>${ME.bio}</p>
+        <p>[try reloading site for a new layout]<p>
+
         <div class="links">${ME.links.map(l => `<a href="${l.href}" class="hoverable">${l.label}</a>`).join('')}</div>
     `;
 
@@ -193,7 +195,7 @@ function buildGrid() {
         if((idx - 1) % 2 == 0) {
             cells2 = buildInterruptRow(img_id);
             cells2.forEach(c => wrapper.appendChild(c));
-            img_id = img_id + 1; 
+            img_id = img_id + 2; 
 
         }
     });
@@ -217,7 +219,6 @@ function buildProjectRow(p, idx) {
 }
 
 function buildInterruptRow(idx) {
-
     const cells = [null, null, null];
 
     const positions = [0, 1, 2]; 
@@ -231,19 +232,14 @@ function buildInterruptRow(idx) {
     cells[blank] = makeBlankCell();
     cells[blank1] = makeBlankCell();
 
-    // cells[0] = makeBlankCell();
-    // cells[1] = makeImageCellExtra(IMAGE_BANK[idx])
-    // cells[2] = makeBlankCell();
 
     return cells;
-
-
 }
 
 function makeCell(cls, project) {
   const div = document.createElement('div');
   div.className = 'grid-cell ' + cls;
-  if (project) {
+  if (project && cls == 'cell-title clickable') {
     // div.classList.add('clickable');
     div.dataset.project = project.id;
     div.addEventListener('click', () => openModal(project));
