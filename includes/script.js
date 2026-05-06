@@ -82,7 +82,20 @@ const PROJECTS = [
 
     },
     {
-        id: 5,
+        id: 5, 
+        title: "Musical(c)ity", 
+        sub: "Animation · 2023 ", 
+        type: "Animation",
+        year: "2023", 
+        links: [{label: "Preview", url: "https://player.vimeo.com/video/1184234066?h=39b69dd726"}], 
+        tags: ["Animation", "Drawing", "Premiere Pro", "Editing"], 
+        img: "imgs/musicality.png", 
+        desc: "An animation built from music sheets, using characters to redefine the lines and notes as a cityscape. Animated through drawings and edited together with music by Gaby Namouni. ", 
+        duration: "3 months", 
+        quote: {text: "constructing a city through music sheets", cite: "Musical(c)ity"}
+    }, 
+    {
+        id: 6,
         title: "Textile",
         sub: "Data Vis · 2024",
         type: "Data Visualization",
@@ -96,7 +109,7 @@ const PROJECTS = [
         quote: { text: "demonstrating the dadaist assault on meaning", cite: "Textile" },
     },
     {
-        id: 6,
+        id: 7,
         title: "Thesis - Ongoing ",
         sub: "Interactive Installation · 2026",
         type: "Interactive Installation",
@@ -108,8 +121,6 @@ const PROJECTS = [
         role: "Developer & Designer",
         duration: "ongoing",
         quote: { text: "visualising how people occupy space", cite: "Thesis" },
-
-
     }
 ];
 
