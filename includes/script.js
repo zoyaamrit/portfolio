@@ -187,7 +187,7 @@ function buildGrid() {
         <p>${ME.bio}</p>
         <p>[try reloading site for a new layout]<p>
 
-        <div class="links">${ME.links.map(l => `<a href="${l.href}" class="hoverable">${l.label}</a>`).join('')}</div>
+        <div class="links">${ME.links.map(l => `<a href="${l.href}" target="_blank" class="hoverable">${l.label}</a>`).join('')}</div>
     `;
 
     wrapper.appendChild(aboutCell);
