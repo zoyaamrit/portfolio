@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+
+<style>
+
+:root{
+    --bg: #ffffff;
+    --ink: #1a1a18;
+    --accent: #b82601;
+    --accent-light:#d76d38;
+
+    --mid: #a8a8a8;
+    --light: #f4f4f4;
+    --cell: 260px;
+
+    --display:'Fraunces',Georgia,serif;
+    --body: 'Helvetica', Helvetica;
+    --mono: 'Mono', monospace;
+
+}
+
+html{
+    background-color: var(--bg);
+}
+
+body {
+    margin: 0 auto; 
+    max-width: 90vw; 
+    font-family: var(--body);
+    letter-spacing: 0.05em;
+
+}
+
+
+h1 {
+    font-family: var(--display);
+    font-weight: 200;
+    font-size: clamp(28px, 3vw, 42px);
+    color: var(--ink);
+}
+
+
+
+.ecg{
+  width:100%;height:50px;overflow:visible;
+}
+.ecg-line{
+  fill:none;
+  stroke:var(--accent);
+  stroke-width:2.5;
+  stroke-linecap:round;stroke-linejoin:round;
+
+}
+
+.section-distance{
+    padding-top: 50px;
+}
+
+
+.instrument{padding-top:clamp(36px,7vh,64px)}
+.inst-note{font-size:12px;
+    line-height:1.65; padding: 5px;}
+
+.wrap{
+  border:2px solid var(--light);
+  /* background-color: var(--light); */
+  /* border-radius:16px; */
+  padding:clamp(5px,2.4vw,10px);
+}
+.panels{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+}
+
+.panel{
+  overflow:hidden;
+}
+.plabel{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:9px 12px;
+  font-size:11px;
+  background-color: var(--light);
+  text-transform: uppercase;
+}
+
+.panel canvas{display:block;width:100%;height:auto;background:#0a0712}
+.overlay-btn{
+  font-size:10px;
+
+  border:1px solid var(--accent-light);
+  border-radius:999px;
+  padding:3px 10px;
+  cursor:pointer;
+  transition:all .15s ease;
+  white-space:nowrap;
+}
+.overlay-btn:hover{color:var(--text);border-color:var(--line-strong)}
+.overlay-btn.active{
+background-color: var(--accent-light);
+
+}
+
+.ctrl-grid{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px 22px;
+}
+
+@media (max-width: 900px) {
+    .panels, .ctrl-grid{
+        grid-template-columns: repeat(2,1fr);
+    }
+    
+}
+
+.ctrl{display:flex;align-items:center;gap:10px}
+.ctrl label{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  text-transform: uppercase;width:84px;flex:none;
+}
+.ctrl span{
+  font-family:var(--mono);font-size:11px;color:var(--violet);
+  width:34px;text-align:right;flex:none;
+}
+.ctrl input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  flex:1;height:2px;border-radius:2px;
+  background:var(--ink);outline:none;cursor:pointer;
+}
+.ctrl input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--accent);
+
+}
+.ctrl input[type=range]::-moz-range-thumb{
+  width:13px;height:13px;border-radius:50%;border:2px solid var(--ink-2);
+  background:var(--violet);box-shadow:0 0 0 1px var(--violet);
+}
+
+.info-row{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:18px;padding-top:16px;
+  border-top:1px solid var(--line);
+}
+.chip{
+  font-family:var(--mono);font-size:12px;letter-spacing:.03em;
+  background:var(--light);
+  border-radius:999px;
+  padding:4px 11px;
+}
+
+
+.eyebrow {letter-spacing: 0.2em; font-size: 18px; font: var(--mono); text-transform: lowercase;}
+
+.text-title {color: var(--accent); text-transform: uppercase; padding-top: 15px; font-weight: 400;}
+.names {
+    color: var(--accent-light); font-style: oblique;
+}
+.terms {
+     color: var(--accent-light);
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.frame {
+    aspect-ratio: 4 / 3; /* choose your preferred ratio */
+    overflow: hidden;
+}
+
+.frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+@media (max-width: 600px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+    <header id="hero">
+
+        <h1>pulse</h1>
+       
+          <svg class="ecg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <path class="ecg-line" d="M0,60 L120,60 L150,60 L160,48 L172,72 L182,60 L240,60 L300,60 L312,62 L322,12 L332,104 L342,52 L356,60 L420,60 L480,60 L492,58 L502,16 L512,100 L522,54 L536,60 L600,60 L660,60 L672,62 L682,14 L692,102 L702,52 L716,60 L780,60 L840,60 L852,58 L862,16 L872,100 L882,54 L896,60 L960,60 L1020,60 L1032,62 L1042,12 L1052,104 L1062,52 L1076,60 L1140,60 L1200,60"/>
+    </svg>
+        <p class="section-distance"> pulse is an installation featuring an electronic setup paired with a projection. A pulse sensor 
+            captures a participant's heartbeat in real time and, through 
+            interaction, generates a dynamic digital terrain built entirely from
+            that signal.</p>
+    </header>
+
+  
+
+    <div id="intro">
+        <p>
+        This was an investigation into how art and technology can amplify human
+         presence. Through computation and algorithmic processing, I transformed
+          a participant’s heartbeat into an imaginative terrain overlaying the 
+          Boston map, reframing informatic analysis as poetic. I aimed to use 
+        technology as a tool for gaining perspective, to trace the relationship 
+        between <strong>presence</strong> and <strong>information</strong> 
+
+        </p>
+
+        
+    </div>
+
+    
+
+    <div id="research" class="section-distance">
+        <p class="eyebrow">
+            <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0,5 H6 L8,1 L10,9 L12,5 H22" fill="none" stroke="var(--accent)" stroke-width="1.4"/></svg>
+            Research </p>
+        
+        <p class="text-title">Artists and Artwork</p>
+        <p>
+        My research for this project began by exploring the work of artists who use 
+        data, the human body and interaction in their practice. I reviewed computational work 
+        by <span class="names"> Tyler Hobbs, Refik Anadol and Laura Gines </span>
+        and large scale public work done by <span class="names"> Franics Alys and Rafael Lozano-Hemmer </span>. 
+        I learnt from the writing of these artists, especially <span class="names">Giorgia Lupi and 
+        Phillip Cox’s</span> Speak Data, which spoke about the distinctions between data, 
+        information and interpretation. 
+        </p>
+
+        <p class="text-title">Computational</p>
+        <p>
+        My research also encompassed the technical processes behind visual 
+        technology and computer vision. Understanding the concept of <span class="terms">noise</span>, how 
+        to interpret it and transform it mathematically helped define the visuals. 
+        I also studied <span class="terms">bit shifting, the random function, simplex transformation, 
+        and flow fields</span>. All these concepts together informed how I went from an 
+        electronic wave signaling a heartbeat to a robust landscape. 
+        </p>
+
+    </div>
+
+    <div id="imgs" class="section-distance">
+        <p class="eyebrow">
+            <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0,5 H6 L8,1 L10,9 L12,5 H22" fill="none" stroke="var(--accent)" stroke-width="1.4"/></svg>
+            visuals </p>
+    <div class="image-grid">
+        <div class="frame"><img src="thesis/blues.png"></div>
+        <div class="frame"><img src="thesis/multli.png"></div>
+        <div class="frame"><img src="thesis/greens.png"></div>
+        <div class="frame"><img src="thesis/multi2.png"></div>
+    </div>
+
+    <div id="howitworks" class="section-distance">
+        <p class="eyebrow">
+            <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0,5 H6 L8,1 L10,9 L12,5 H22" fill="none" stroke="var(--accent)" stroke-width="1.4"/></svg>
+            How it Works
+        </p>
+
+        <p>The electronic setup reads in a participant's heartbeat via a pulse 
+            sensor. An <span class="terms"> Arduino</span> processes these 
+            numbers and sends them to a <span class="terms">Processing</span> 
+            sketch hosted on a <span class="terms">Raspberry Pi</span>. </p>
+
+        <p>
+            The heartbeat is stored as a series of individual numbers chained 
+            together in four 32-bit integers (that’s around 40 decimal digits). 
+            This number becomes the algorithmic representation of the heartbeat,
+             and becomes the driver for every stage of the render (terrain shape
+             , camera position, color choices, strokes etc.). The terrain itself 
+            is also built from the heartbeat, which is used to generate 
+            <span class="terms">simplex noise</span>, that is then turned into a 
+            three-dimensional plane with <span class="terms">fractal brownian motion</span>.
+             Then, through <span class="terms">raymarching</span>, the algorithm 
+             approximated the distance of a point in space from a fixed camera. 
+
+        </p>
+    </div>
+
+    <div class="section-distance instrument">
+    <p class="eyebrow">
+            <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0,5 H6 L8,1 L10,9 L12,5 H22" fill="none" stroke="var(--accent)" stroke-width="1.4"/></svg>
+            try the drivers </p>
+
+ 
+    <p class="inst-note">Each panel is one step in the render. Move the sliders to feel how a few numbers reshape the noise field, the terrain, the raymarcher's workload, and the brush strokes. Hover the terrain and raymarch panels; click the raymarcher to trace a single ray.</p>
+
+    <div class="wrap">
+      <div class="panels">
+        <div class="panel">
+          <div class="plabel">fBm — octave accumulation
+            <button class="overlay-btn active" id="btnOctWave" onclick="toggleOctWave()">waveform</button>
+          </div>
+          <canvas id="cNoise" width="300" height="196"></canvas>
+        </div>
+        <div class="panel">
+          <div class="plabel">terrain isometric
+            <button class="overlay-btn active" id="btnNormals" onclick="toggleNormals()">normals</button>
+          </div>
+          <canvas id="cTerrain" width="300" height="196" style="cursor:crosshair" onmousemove="terrainHover(event)" onmouseleave="terrainLeave()"></canvas>
+        </div>
+        <div class="panel">
+          <div class="plabel">raymarcher — step heat-map
+            <button class="overlay-btn" id="btnRayOverlay" onclick="toggleRayOverlay()">ray path</button>
+          </div>
+          <canvas id="cRay" width="300" height="196" style="cursor:crosshair" onmousemove="rayHover(event)" onmouseleave="rayLeave()" onclick="rayClick(event)"></canvas>
+        </div>
+        <div class="panel">
+          <div class="plabel">oriented brush strokes
+            <button class="overlay-btn active" id="btnStrokeDir" onclick="toggleStrokeDir()">flow field</button>
+          </div>
+          <canvas id="cPaint" width="300" height="196"></canvas>
+        </div>
+      </div>
+
+      <div class="ctrl-grid">
+        <div class="ctrl"><label>octaves</label><input type="range" id="sOct" min="1" max="8" step="1" value="7"><span id="vOct">7</span></div>
+        <div class="ctrl"><label>amplitude</label><input type="range" id="sAmp" min="1" max="14" step="0.1" value="7"><span id="vAmp">7.0</span></div>
+        <div class="ctrl"><label>exponent</label><input type="range" id="sExp" min="0.2" max="1.4" step="0.05" value="0.65"><span id="vExp">0.65</span></div>
+        <div class="ctrl"><label>camera angle</label><input type="range" id="sCam" min="0" max="6.28" step="0.05" value="0.8"><span id="vCam">0.80</span></div>
+        <div class="ctrl"><label>cam height</label><input type="range" id="sCamH" min="2" max="22" step="0.5" value="10"><span id="vCamH">10.0</span></div>
+        <div class="ctrl"><label>cam dist</label><input type="range" id="sCamD" min="6" max="28" step="0.5" value="16"><span id="vCamD">16.0</span></div>
+      </div>
+
+      <div class="info-row" id="infoRow"></div>
+    </div>
+  </div>
+
+    <div id="imgs" class="section-distance">
+        <p class="eyebrow">
+            <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0,5 H6 L8,1 L10,9 L12,5 H22" fill="none" stroke="var(--accent)" stroke-width="1.4"/></svg>
+            installation </p>
+    <div class="image-grid">
+        <div class="frame"><img src="thesis/pedestal.jpg"></div>
+        <div class="frame"><img src="thesis/filmstrips.jpg"></div>
+        <div class="frame"><img src="thesis/landscape_1394.png"></div>
+        <div class="frame"><img src="thesis/thesis_preview.jpg"></div>
+        
+    </div>
+
+
+    </div>
+
+    <div id="future" class="section-distance">
+         <p class="eyebrow">
+            <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><path d="M0,5 H6 L8,1 L10,9 L12,5 H22" fill="none" stroke="var(--accent)" stroke-width="1.4"/></svg>
+            future explorations </p>
+
+        <p>
+            This initial setup gives me an interesting toolkit to explore further. 
+            So far, I have created <oblique>portraits</oblique> that showcase an individual's 
+            heartbeats in a Risograph printed filmstrip with four images rendered 
+            from their heartbeat. 
+        </p>
+
+        <p>
+            I can also imagine the project with a musical component, which 
+            transforms with the heartbeat. I'm interested in collating a database
+             of the images, and adding a printmaking component to the 
+             installation itself. 
+        </p>
+    </div>
+
+    <div class="section-distance"></div>
+
+
+
+    <script>
+    const W=290,H=196;
+    const canvases=['cNoise','cTerrain','cRay','cPaint'].map(id=>({c:document.getElementById(id),ctx:document.getElementById(id).getContext('2d')}));
+    const [CN,CT,CR,CP]=canvases;
+
+
+    // ---- simplex noise ----
+    let sPerm=new Int32Array(512),sGrad=new Int32Array(512);
+    const GT=[1,1,-1,1,1,-1,-1,-1,1,0,-1,0,1,0,-1,0,0,1,0,-1,0,1,0,-1,1,1,-1,1,1,-1,-1,-1,1,0,-1,0];
+    function initSimplex(){
+    let p=new Int32Array(256);for(let i=0;i<256;i++)p[i]=i;
+    let seed=42;const rng=()=>{seed=(seed*1664525+1013904223)&0xffffffff;return((seed>>>0)/4294967296);};
+    for(let i=0;i<255;i++){let j=i+Math.floor(rng()*(256-i));let t=p[i];p[i]=p[j];p[j]=t;}
+    for(let i=0;i<512;i++){sPerm[i]=p[255&i];sGrad[i]=sPerm[i]%12;}
+    }
+    initSimplex();
+    function simplex2(xin,yin){
+    const F2=0.5*(Math.sqrt(3)-1),G2=(3-Math.sqrt(3))/6;
+    let s=(xin+yin)*F2,i=Math.floor(xin+s),j=Math.floor(yin+s),t=(i+j)*G2;
+    let x0=xin-(i-t),y0=yin-(j-t),i1=x0>y0?1:0,j1=x0>y0?0:1;
+    let x1=x0-i1+G2,y1=y0-j1+G2,x2=x0-1+2*G2,y2=y0-1+2*G2;
+    let ii=255&i,jj=255&j,n0=0,n1=0,n2=0;
+    let t0=0.5-x0*x0-y0*y0;if(t0>=0){let gi=2*sGrad[ii+sPerm[jj]];t0*=t0;n0=t0*t0*(GT[gi]*x0+GT[gi+1]*y0);}
+    let t1=0.5-x1*x1-y1*y1;if(t1>=0){let gi=2*sGrad[ii+i1+sPerm[jj+j1]];t1*=t1;n1=t1*t1*(GT[gi]*x1+GT[gi+1]*y1);}
+    let t2=0.5-x2*x2-y2*y2;if(t2>=0){let gi=2*sGrad[ii+1+sPerm[jj+1]];t2*=t2;n2=t2*t2*(GT[gi]*x2+GT[gi+1]*y2);}
+    return 70*(n0+n1+n2)*0.5+0.5;
+    }
+    const OX=123.4,OY=567.8;
+    function fbmOct(x,y,freq,oct){
+    let ax=x*freq,ay=y*freq,sum=0,norm=0,gain=1;
+    for(let k=0;k<oct;k++){let rx=0.8*ax-0.6*ay,ry=0.6*ax+0.8*ay;ax=rx;ay=ry;let w=k===0?1:1/gain;sum+=w*simplex2(ax*gain,ay*gain);norm+=w;gain*=2;}
+    return sum/norm;
+    }
+    function terrainH(x,z,amp,exp,oct){
+    return Math.max(0,Math.pow(Math.max(0,fbmOct(x+OX,z+OY,0.05,oct)),exp)*amp);
+    }
+
+
+    // ---- terrain cache ----
+    const GRID=52;let heightCache=null,cacheKey='';
+    function buildCache(p){
+    const k=`${p.amp},${p.exp},${p.oct}`;
+    if(k===cacheKey)return;
+    cacheKey=k;
+    heightCache=new Float32Array((GRID+1)*(GRID+1));
+    for(let row=0;row<=GRID;row++)for(let col=0;col<=GRID;col++){
+    let wx=(col/GRID)*30,wz=(row/GRID)*30;
+    heightCache[row*(GRID+1)+col]=terrainH(wx,wz,p.amp,p.exp,p.oct);
+    }
+    }
+    function cachedH(col,row){return heightCache[row*(GRID+1)+col];}
+
+
+    function getP(){
+    return{amp:+document.getElementById('sAmp').value,exp:+document.getElementById('sExp').value,
+    oct:+document.getElementById('sOct').value,camAng:+document.getElementById('sCam').value,
+    camH:+document.getElementById('sCamH').value,camD:+document.getElementById('sCamD').value};
+    }
+
+
+    // ---- panel toggles ----
+    let showOctWave=true,showNormals=true,showRayOverlay=false,showStrokeDir=true;
+    function toggleOctWave(){showOctWave=!showOctWave;document.getElementById('btnOctWave').classList.toggle('active',showOctWave);render();}
+    function toggleNormals(){showNormals=!showNormals;document.getElementById('btnNormals').classList.toggle('active',showNormals);render();}
+    function toggleRayOverlay(){showRayOverlay=!showRayOverlay;document.getElementById('btnRayOverlay').classList.toggle('active',showRayOverlay);render();}
+    function toggleStrokeDir(){showStrokeDir=!showStrokeDir;document.getElementById('btnStrokeDir').classList.toggle('active',showStrokeDir);render();}
+
+
+    // ---- PANEL 1: fBm with octave waveforms ----
+    function drawNoise(p){
+    const id=CN.ctx.createImageData(W,H);const d=id.data;
+    for(let py=0;py<H;py++)for(let px=0;px<W;px++){
+    let wx=(px/W)*30,wz=(py/H)*30,v=fbmOct(wx+OX,wz+OY,0.05,p.oct);
+    v=Math.max(0,Math.min(1,v));
+    let off=(py*W+px)*4;
+    d[off]=62+(206-62)*v;d[off+1]=33+(231-33)*v;d[off+2]=137+(255-137)*v;d[off+3]=255;
+    }
+    CN.ctx.putImageData(id,0,0);
+    if(showOctWave){
+    // draw per-octave waveforms along the bottom strip
+    const stripH=52,stripY=H-stripH;
+    CN.ctx.fillStyle='rgba(20,10,50,0.72)';CN.ctx.fillRect(0,stripY,W,stripH);
+    const colors=['#b8b0ff','#80d4b0','#ffcc60','#ff8888','#88ddff','#ffaacc','#ccffaa','#ffe088'];
+    for(let k=0;k<p.oct;k++){
+        CN.ctx.beginPath();
+        let gain=Math.pow(2,k),freq=0.05*gain,amp2=k===0?1:1/gain;
+        let norm2=0;for(let kk=0;kk<p.oct;kk++)norm2+=(kk===0?1:1/Math.pow(2,kk));amp2/=norm2;
+        for(let px=0;px<W;px++){
+        let wx=(px/W)*30,wz=(H*0.5/H)*30;
+        // single octave contribution
+        let ax2=(wx+OX)*0.05,ay2=(wz+OY)*0.05;
+        for(let kk=0;kk<k;kk++){let rx=0.8*ax2-0.6*ay2,ry=0.6*ax2+0.8*ay2;ax2=rx;ay2=ry;ax2*=2;ay2*=2;}
+        // let v2=simplex2(ax2,ay2)*amp2;
+        let beatPhase = (px * 0.012 + k * 0.15) % 1;
+
+
+        let spike =
+        Math.exp(-Math.pow((beatPhase - 0.40) / 0.015, 2));
+
+
+        let recovery =
+        Math.exp(-Math.pow((beatPhase - 0.52) / 0.05, 2));
+
+
+        let freqBoost =
+        1 + spike * 10 + recovery * 2;
+
+
+        let v2 = simplex2(
+        ax2 * freqBoost,
+        ay2 * freqBoost
+        ) * amp2;
+        let sy=stripY+stripH/2-v2*(stripH*0.45);
+        if(px===0)CN.ctx.moveTo(px,sy);else CN.ctx.lineTo(px,sy);
+        }
+        CN.ctx.strokeStyle=colors[k%colors.length];CN.ctx.lineWidth=0.8+(k===0?0.4:0);CN.ctx.stroke();CN.ctx.beginPath();
+    }
+    CN.ctx.fillStyle='rgba(184,176,255,0.9)';CN.ctx.font='9px monospace';
+    CN.ctx.fillText(`${p.oct} octave${p.oct>1?'s':''} summed — each wave = one layer`,5,stripY+H-52+9);
+    }
+    CN.ctx.fillStyle='rgba(220,214,255,0.9)';CN.ctx.font='9px monospace';
+    CN.ctx.fillText(`fbm(x,z) · oct=${p.oct} · amp×exp→terrain`,5,H-4);
+    }
+
+
+    // ---- PANEL 2: Terrain with Lambert shading from cached normals ----
+    const SUN=vnorm([0.6,1.2,0.4]);
+    function project(gx,gy,gz){
+    const oX=W*0.5,oY=H*0.68,sX=W/GRID*0.52,sZ=H/GRID*0.34,sY=3.8;
+    const aX=0.54,cosX=Math.cos(aX),sinX=Math.sin(aX),aY=-0.6,cosY=Math.cos(aY),sinY=Math.sin(aY);
+    let dx=gx-GRID/2,dy=-gy,dz=gz-GRID/2;
+    let rx=dx*cosY-dz*sinY,rz=dx*sinY+dz*cosY;
+    let ry2=dy*cosX-rz*sinX,rz2=dy*sinX+rz*cosX;
+    return[oX+rx*sX,oY+ry2*sY-rz2*sZ];
+    }
+    let hoverCol=-1,hoverRow=-1;
+    function terrainHover(e){
+    const r=e.target.getBoundingClientRect(),x=(e.clientX-r.left)*(e.target.width/r.width),y=(e.clientY-r.top)*(e.target.height/r.height);
+    // find nearest grid point by projecting
+    let best=Infinity,bc=-1,br=-1;
+    for(let row=0;row<=GRID;row+=2)for(let col=0;col<=GRID;col+=2){
+    let h=cachedH(col,row);let[px2,py2]=project(col,h,row);
+    let dx=x-px2,dy=y-py2,d=dx*dx+dy*dy;if(d<best){best=d;bc=col;br=row;}
+    }
+    if(hoverCol!==bc||hoverRow!==br){hoverCol=bc;hoverRow=br;drawTerrain(getP());}
+    }
+    function terrainLeave(){hoverCol=-1;hoverRow=-1;drawTerrain(getP());}
+    function drawTerrain(p){
+    const ctx=CT.ctx;ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0a0712';ctx.fillRect(0,0,W,H);
+    for(let row=GRID-1;row>=0;row--){
+    for(let col=0;col<GRID;col++){
+        let h00=cachedH(col,row),h10=cachedH(col+1,row),h01=cachedH(col,row+1),h11=cachedH(col+1,row+1);
+        let hA=(h00+h10+h01+h11)/4,tN=Math.min(1,hA/p.amp);
+        // face normal from cross product of diagonal edges
+        let E=1;let dxR=[E,h10-h00,0],dxF=[0,h01-h00,E];
+        let nx2=dxR[1]*dxF[2]-dxR[2]*dxF[1],ny2=dxR[2]*dxF[0]-dxR[0]*dxF[2],nz2=dxR[0]*dxF[1]-dxR[1]*dxF[0];
+        let nn=Math.sqrt(nx2*nx2+ny2*ny2+nz2*nz2)||1;nx2/=nn;ny2/=nn;nz2/=nn;
+        let diff=Math.max(0,nx2*SUN[0]+ny2*SUN[1]+nz2*SUN[2]);
+        let ambient=0.25,light=ambient+diff*0.75;
+        let isHover=(col===hoverCol&&row===hoverRow)||(col===hoverCol+1&&row===hoverRow)||(col===hoverCol&&row===hoverRow+1);
+        let r2,g2,b2;
+        if(isHover){r2=255;g2=160;b2=92;}
+        else{r2=Math.round((40+tN*166)*light);g2=Math.round((150+tN*81)*light);b2=Math.round((140+tN*115)*light);}
+        let[x0,y0]=project(col,h00,row),[x1,y1]=project(col+1,h10,row);
+        let[x2,y2]=project(col+1,h11,row+1),[x3,y3]=project(col,h01,row+1);
+        ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);ctx.lineTo(x2,y2);ctx.lineTo(x3,y3);ctx.closePath();
+        ctx.fillStyle=`rgb(${r2},${g2},${b2})`;ctx.fill();
+        if(showNormals&&(col%5===0&&row%5===0)){
+        // draw normal arrow projected onto screen
+        let[cx2,cy2]=project(col+0.5,hA,row+0.5);
+        let[nx3,ny3]=project(col+0.5+nx2*1.5,hA+ny2*1.5,row+0.5+nz2*1.5);
+        ctx.beginPath();ctx.moveTo(cx2,cy2);ctx.lineTo(nx3,ny3);
+        ctx.strokeStyle='rgba(255,220,100,0.5)';ctx.lineWidth=0.6;ctx.stroke();
+        }
+        ctx.strokeStyle='rgba(0,0,0,0.18)';ctx.lineWidth=0.3;ctx.stroke();
+    }
+    }
+    if(hoverCol>=0){
+    let h=cachedH(hoverCol,hoverRow);
+    ctx.fillStyle='rgba(255,180,100,0.95)';ctx.font='9px monospace';
+    ctx.fillText(`h=${h.toFixed(2)} @ (${hoverCol},${hoverRow})`,5,H-4);
+    } else {
+    ctx.fillStyle='rgba(120,220,180,0.9)';ctx.font='9px monospace';
+    ctx.fillText(`Lambert shading · hover for height`,5,H-4);
+    }
+    }
+
+
+    // ---- Panel 3: Raymarcher ----
+    function vnorm(v){let l=Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);return l<1e-9?v:[v[0]/l,v[1]/l,v[2]/l];}
+    function vcross(a,b){return[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+    function makeRayDir(px2,py2,camPos,w,h){
+    const fov=0.9;let nx2=2*px2/w-1,ny2=-(2*py2/h-1);
+    let fwd=vnorm([-camPos[0],-camPos[1],-camPos[2]]);
+    let right=vnorm(vcross(fwd,[0,1,0]));let up=vcross(right,fwd);
+    return vnorm([fwd[0]+nx2*fov*right[0]+ny2*fov*up[0],fwd[1]+nx2*fov*right[1]+ny2*fov*up[1],fwd[2]+nx2*fov*right[2]+ny2*fov*up[2]]);
+    }
+    function sdf(x,y,z,p){return y-terrainH(x,z,p.amp,p.exp,p.oct);}
+    function marchRay(camPos,rd,p,maxSteps){
+    let t=0,steps=0,hit=false;
+    for(let i=0;i<maxSteps;i++){
+    let hx=camPos[0]+rd[0]*t,hy=camPos[1]+rd[1]*t,hz=camPos[2]+rd[2]*t;
+    let dist=sdf(hx,hy,hz,p);
+    if(dist<0.04){hit=true;steps=i;break;}
+    t+=Math.max(dist*0.85,0.03);if(t>90)break;steps=i;
+    }
+    return{hit,steps,t};
+    }
+    let rayPixels=null,rayHoverX=-1,rayHoverY=-1,rayClickX=-1,rayClickY=-1;
+    const STEP=3;
+    function drawRaymarch(p){
+    const ctx=CR.ctx;
+    if(!rayPixels||rayPixels.params!==`${p.amp},${p.exp},${p.oct},${p.camAng},${p.camH},${p.camD}`){
+    const camPos=[Math.cos(p.camAng)*p.camD,p.camH,Math.sin(p.camAng)*p.camD];
+    const id=ctx.createImageData(W,H);const d=id.data;
+    rayPixels={steps:new Uint8Array(W*H),hits:new Uint8Array(W*H),params:`${p.amp},${p.exp},${p.oct},${p.camAng},${p.camH},${p.camD}`};
+    for(let py=0;py<H;py+=STEP)for(let px=0;px<W;px+=STEP){
+        let rd=makeRayDir(px,py,camPos,W,H);
+        let{hit,steps,t}=marchRay(camPos,rd,p,48);
+        let r2,g2,b2;
+        if(hit){
+        // heat map: few steps = hot (white-yellow), many steps = cold (deep blue)
+        let n=steps/30;
+        if(n<0.33){let s=n/0.33;r2=255;g2=Math.round(255-s*100);b2=Math.round(255-s*200);}
+        else if(n<0.67){let s=(n-0.33)/0.34;r2=Math.round(255-s*200);g2=Math.round(155+s*40);b2=Math.round(55+s*145);}
+        else{let s=(n-0.67)/0.33;r2=Math.round(55-s*25);g2=Math.round(195-s*135);b2=Math.round(200+s*40);}
+        } else {r2=14;g2=11;b2=24;}
+        for(let dy=0;dy<STEP&&py+dy<H;dy++)for(let dx=0;dx<STEP&&px+dx<W;dx++){
+        let off=((py+dy)*W+(px+dx))*4;d[off]=r2;d[off+1]=g2;d[off+2]=b2;d[off+3]=255;
+        rayPixels.steps[(py+dy)*W+(px+dx)]=steps;rayPixels.hits[(py+dy)*W+(px+dx)]=hit?1:0;
+        }
+    }
+    ctx.putImageData(id,0,0);
+    } else {
+    // repaint from stored pixel data if only overlay changes
+    const id=ctx.createImageData(W,H);const d=id.data;
+    for(let py=0;py<H;py+=STEP)for(let px=0;px<W;px+=STEP){
+        let steps=rayPixels.steps[py*W+px],hit=rayPixels.hits[py*W+px];
+        let r2,g2,b2;
+        if(hit){let n=steps/30;if(n<0.33){let s=n/0.33;r2=255;g2=Math.round(255-s*100);b2=Math.round(255-s*200);}else if(n<0.67){let s=(n-0.33)/0.34;r2=Math.round(255-s*200);g2=Math.round(155+s*40);b2=Math.round(55+s*145);}else{let s=(n-0.67)/0.33;r2=Math.round(55-s*25);g2=Math.round(195-s*135);b2=Math.round(200+s*40);}}else{r2=14;g2=11;b2=24;}
+        for(let dy=0;dy<STEP&&py+dy<H;dy++)for(let dx=0;dx<STEP&&px+dx<W;dx++){let off=((py+dy)*W+(px+dx))*4;d[off]=r2;d[off+1]=g2;d[off+2]=b2;d[off+3]=255;}
+    }
+    ctx.putImageData(id,0,0);
+    }
+    // draw colour scale legend
+    const legW=80,legH=8,legX=W-legW-6,legY=H-20;
+    for(let i=0;i<legW;i++){
+    let n=i/legW;let r2,g2,b2;
+    if(n<0.33){let s=n/0.33;r2=255;g2=Math.round(255-s*100);b2=Math.round(255-s*200);}
+    else if(n<0.67){let s=(n-0.33)/0.34;r2=Math.round(255-s*200);g2=Math.round(155+s*40);b2=Math.round(55+s*145);}
+    else{let s=(n-0.67)/0.33;r2=Math.round(55-s*25);g2=Math.round(195-s*135);b2=Math.round(200+s*40);}
+    ctx.fillStyle=`rgb(${r2},${g2},${b2})`;ctx.fillRect(legX+i,legY,1,legH);
+    }
+    ctx.fillStyle='rgba(255,255,255,0.7)';ctx.font='8px monospace';
+    ctx.fillText('1 step',legX,legY-2);ctx.fillText('48',legX+legW-14,legY-2);
+    // ray path overlay if requested
+    if(showRayOverlay&&rayClickX>=0){
+    const camPos=[Math.cos(p.camAng)*p.camD,p.camH,Math.sin(p.camAng)*p.camD];
+    let rd=makeRayDir(rayClickX,rayClickY,camPos,W,H);
+    let t2=0;
+    // project 3D march onto screen — show step dots
+    for(let i=0;i<48;i++){
+        let hx=camPos[0]+rd[0]*t2,hy=camPos[1]+rd[1]*t2,hz=camPos[2]+rd[2]*t2;
+        let dist=sdf(hx,hy,hz,p);
+        // project hx,hz to screen via isometric-ish perspective
+        // simplified: depth = t, map to screen coords using ray pixel position + depth scaling
+        let frac=Math.min(1,t2/70);
+        let sx=rayClickX+(frac*W*0.4-W*0.2)*(0.3);
+        let sy=rayClickY+(frac*H*0.5);
+        let stepN=i/48;
+        ctx.beginPath();ctx.arc(sx,sy,1.8,0,Math.PI*2);
+        ctx.fillStyle=`rgba(255,${Math.round(255-stepN*200)},50,${0.9-stepN*0.4})`;ctx.fill();
+        if(dist<0.04)break;
+        t2+=Math.max(dist*0.85,0.03);if(t2>90)break;
+    }
+    ctx.strokeStyle='rgba(255,220,50,0.6)';ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(rayClickX-4,rayClickY);ctx.lineTo(rayClickX+4,rayClickY);ctx.moveTo(rayClickX,rayClickY-4);ctx.lineTo(rayClickX,rayClickY+4);ctx.stroke();
+    }
+    if(rayHoverX>=0&&rayHoverY>=0){
+    let steps=rayPixels?rayPixels.steps[rayHoverY*W+rayHoverX]:0;
+    let hit=rayPixels?rayPixels.hits[rayHoverY*W+rayHoverX]:0;
+    ctx.fillStyle='rgba(255,255,255,0.9)';ctx.fillRect(5,H-16,150,12);
+    ctx.fillStyle='#222';ctx.font='9px monospace';
+    ctx.fillText(`${hit?'HIT':'MISS'} · ${steps} SDF steps`,7,H-5);
+    } else {
+    ctx.fillStyle='rgba(255,210,100,0.9)';ctx.font='9px monospace';
+    ctx.fillText(`white=fast · blue=slow · click for ray path`,5,H-5);
+    }
+    }
+    function rayHover(e){const r=e.target.getBoundingClientRect();rayHoverX=Math.round((e.clientX-r.left)*(e.target.width/r.width));rayHoverY=Math.round((e.clientY-r.top)*(e.target.height/r.height));drawRaymarch(getP());}
+    function rayLeave(){rayHoverX=-1;rayHoverY=-1;drawRaymarch(getP());}
+    function rayClick(e){const r=e.target.getBoundingClientRect();rayClickX=Math.round((e.clientX-r.left)*(e.target.width/r.width));rayClickY=Math.round((e.clientY-r.top)*(e.target.height/r.height));showRayOverlay=true;document.getElementById('btnRayOverlay').classList.add('active');drawRaymarch(getP());}
+
+
+    // ---- Panel 4: Oriented brush strokes ----
+    // function hexRgb(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+    function poissonDisk(r,maxPts){
+    let pts=[],active=[],cell=r/Math.sqrt(2),cols=Math.ceil(W/cell),rows2=Math.ceil(H/cell);
+    let grid=new Array(cols*rows2).fill(null);
+    let seed=[W*0.5+Math.random()*W*0.1,H*0.3+Math.random()*H*0.1];
+    pts.push(seed);active.push(seed);grid[Math.floor(seed[0]/cell)+Math.floor(seed[1]/cell)*cols]=seed;
+    while(active.length>0&&pts.length<maxPts){
+    let ai=Math.floor(Math.random()*active.length),pt=active[ai],found=false;
+    for(let k=0;k<15;k++){
+        let ang=Math.random()*Math.PI*2,dist=r*(1+Math.random());
+        let nx2=pt[0]+Math.cos(ang)*dist,ny2=pt[1]+Math.sin(ang)*dist;
+        if(nx2<0||nx2>=W||ny2<0||ny2>=H)continue;
+        let gx=Math.floor(nx2/cell),gy=Math.floor(ny2/cell),ok=true;
+        for(let dy=-2;dy<=2&&ok;dy++)for(let dx=-2;dx<=2&&ok;dx++){let nx3=gx+dx,ny3=gy+dy;if(nx3<0||nx3>=cols||ny3<0||ny3>=rows2)continue;let q=grid[nx3+ny3*cols];if(!q)continue;let ddx=nx2-q[0],ddy=ny2-q[1];if(ddx*ddx+ddy*ddy<r*r)ok=false;}
+        if(ok){let np=[nx2,ny2];pts.push(np);active.push(np);grid[gx+gy*cols]=np;found=true;break;}
+    }
+    if(!found)active.splice(ai,1);
+    }
+    return pts;
+    }
+    let paintPts=poissonDisk(5,900);
+    function drawPaint(p){
+    const ctx=CP.ctx;
+    const camPos=[Math.cos(p.camAng)*p.camD,p.camH,Math.sin(p.camAng)*p.camD];
+    ctx.fillStyle='#0a0712';ctx.fillRect(0,0,W,H);
+    const LIGHT=vnorm([0.5,1.2,0.5]);
+    // draw flow field first (if enabled)
+    if(showStrokeDir){
+    const fgrid=20;
+    for(let gy=0;gy<H;gy+=fgrid)for(let gx=0;gx<W;gx+=fgrid){
+        let wx=(gx/W)*30,wz=(gy/H)*30;
+        let ang=fbmOct(wx*0.5+OX,wz*0.5+OY,0.1,2)*Math.PI*4;
+        let len=7;let ex=gx+Math.cos(ang)*len,ey=gy+Math.sin(ang)*len;
+        ctx.beginPath();ctx.moveTo(gx,gy);ctx.lineTo(ex,ey);
+        ctx.strokeStyle='rgba(255, 255, 255,0.6)';ctx.lineWidth=0.7;ctx.stroke();
+        ctx.beginPath();ctx.arc(ex,ey,1,0,Math.PI*2);ctx.fillStyle='rgba(255, 255, 255, 0.8)';ctx.fill();
+    }
+    }
+    // sort strokes far to near for proper painter's algo
+    let strokes=paintPts.map(([px2,py2])=>{
+    let rd=makeRayDir(px2,py2,camPos,W,H);
+    let t2=0,hit=false;
+    for(let k=0;k<52;k++){
+        let hx=camPos[0]+rd[0]*t2,hy=camPos[1]+rd[1]*t2,hz=camPos[2]+rd[2]*t2;
+        let dist=sdf(hx,hy,hz,p);
+        if(dist<0.04){hit=true;break;}
+        t2+=Math.max(dist*0.85,0.03);if(t2>90)break;
+    }
+    return{px:px2,py:py2,t:t2,hit};
+    }).sort((a,b)=>b.t-a.t);
+    for(let{px:px2,py:py2,t:t2,hit}of strokes){
+    let hx=camPos[0]+makeRayDir(px2,py2,camPos,W,H)[0]*t2;
+    let hy=camPos[1]+makeRayDir(px2,py2,camPos,W,H)[1]*t2;
+    let hz=camPos[2]+makeRayDir(px2,py2,camPos,W,H)[2]*t2;
+    const E=0.06;let rd=makeRayDir(px2,py2,camPos,W,H);
+    let nx2=sdf(hx+E,hy,hz,p)-sdf(hx-E,hy,hz,p);
+    let ny2=sdf(hx,hy+E,hz,p)-sdf(hx,hy-E,hz,p);
+    let nz2=sdf(hx,hy,hz+E,p)-sdf(hx,hy,hz-E,p);
+    let n=vnorm([nx2,ny2,nz2]);
+    let diff=Math.max(0,n[0]*LIGHT[0]+n[1]*LIGHT[1]+n[2]*LIGHT[2]);
+    let depthN=hit?Math.max(0,Math.min(1,1-t2/22)):0;
+    if(!hit)depthN=0;
+    let alpha=(0.4+diff*0.6)*(hit?200:30);
+    // fBm-driven stroke angle — this is what actually guides the brush
+    let ang=fbmOct(hx*0.5,hz*0.5,0.1,2)*Math.PI*4;
+    let swLen=hit?(3.5+depthN*9):2;
+    let swW=hit?(1.2+depthN*2.5):0.5;
+ 
+    let gray = Math.round(255 - depthN * 200);    if(!hit){cr=70;cg=64;cb=110;}
+    ctx.save();ctx.translate(px2,py2);ctx.rotate(ang);
+    ctx.beginPath();ctx.ellipse(0,0,swLen,swW,0,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${gray},${gray},${gray},${(0.45+diff*0.55)*(hit?0.92:0.18)})`;ctx.fill();
+    ctx.restore();
+    }
+    ctx.fillStyle='rgba(200,194,255,0.85)';ctx.font='9px monospace';
+    ctx.fillText('fBm angle → stroke orient · depth → colour',5,H-4);
+    }
+
+
+    // ---- info chips ----
+    function updateInfo(p){
+    const row=document.getElementById('infoRow');
+    if(!row)return;
+    const faceCount=GRID*GRID;
+    const stepCount=Math.round((W/STEP)*(H/STEP));
+    row.innerHTML=`<span class="chip">terrain faces: ${faceCount.toLocaleString()}</span><span class="chip">raymarch pixels: ${stepCount.toLocaleString()}</span><span class="chip">brush strokes: ${paintPts.length}</span><span class="chip">noise evals/frame: ${(faceCount*4 + stepCount + paintPts.length).toLocaleString()} cached</span>`;
+    }
+
+
+    // ---- main render ----
+    let raf=null;
+    function render(){
+    if(raf)cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(()=>{
+    const p=getP();
+    buildCache(p);
+    rayPixels=null; // invalidate ray cache on param change
+    drawNoise(p);drawTerrain(p);drawRaymarch(p);drawPaint(p);
+    updateInfo(p);raf=null;
+    });
+    }
+    ['sAmp','sExp','sOct','sCam','sCamH','sCamD'].forEach(id=>{
+    const el=document.getElementById(id);
+    const vid=document.getElementById('v'+id.slice(1));
+    el.addEventListener('input',()=>{
+    vid.textContent=parseFloat(el.value).toFixed(id==='sOct'?0:2);
+    render();
+    });
+    });
+    render();
+    </script>
+
+</body>
+
+</html>

@@ -13,8 +13,22 @@
   };
 
 const PROJECTS = [
-    {
+      {
         id: 1,
+        title: "Pulse ",
+        sub: "Interactive Installation · 2026",
+        type: "Interactive Installation",
+        year: "2026",
+        tags: ["Creative Code", "Arduino", "Electronics", "Installation", "Research"],
+        img: "imgs/thesis/landscape_1394.png",
+        desc: "An interactive piece featuring an electronic setup connected to a projection. A pulse sensor captures real-time pulse data that, when interacted with, generates a dynamic digital landscape built from the participant's heartbeat. ",
+        links: [{label: "About", url: "imgs/thesis.html"}],
+        role: "Developer & Designer",
+        duration: "ongoing",
+        quote: { text: "If you unravel your DNA, it can wrap the solar system 10 times over. The wiring of your brain will short circuit the most powerful computer on earth. People do not simply pass through space, they shape it. I aim to document this transformation. ", cite: "Pulse" },
+    },
+    {
+        id: 2,
         title: "Ripple",
         sub: "Interactive Animation · 2026",
         type: "Interactive Animation",
@@ -32,7 +46,7 @@ const PROJECTS = [
     },
 
     { 
-        id: 2,
+        id: 3,
         title: "Strange New Places",
         sub: "Music Video· 2026",
         type: "Animation",
@@ -47,7 +61,7 @@ const PROJECTS = [
 
     },
     {
-        id: 3,
+        id: 4,
         title: "Mythical Safari",
         sub: "Creative Coding · 2024",
         type: "Website",
@@ -62,7 +76,7 @@ const PROJECTS = [
 
     },
     {
-        id: 4,
+        id: 5,
         title: "33 Answers to Fall in Love",
         sub: "Book · 2024",
         type: "Artist Book",
@@ -82,7 +96,7 @@ const PROJECTS = [
 
     },
     {
-        id: 5, 
+        id: 6, 
         title: "Musical(c)ity", 
         sub: "Animation · 2023 ", 
         type: "Animation",
@@ -95,7 +109,7 @@ const PROJECTS = [
         quote: {text: "constructing a city through music sheets", cite: "Musical(c)ity"}
     }, 
     {
-        id: 6,
+        id: 7,
         title: "Textile",
         sub: "Data Vis · 2024",
         type: "Data Visualization",
@@ -108,20 +122,7 @@ const PROJECTS = [
         duration: "1 month",
         quote: { text: "demonstrating the dadaist assault on meaning", cite: "Textile" },
     },
-    {
-        id: 7,
-        title: "Thesis - Ongoing ",
-        sub: "Interactive Installation · 2026",
-        type: "Interactive Installation",
-        year: "2026",
-        tags: ["Installation", "Creative Code", "Arduino", "Research"],
-        img: "imgs/thesis_dots.png",
-        desc: "I am exploring interactive installation to recognise how people occupy space. By transforming live data from a pulse sensor into responsive visuals displayed through projection, I aim to bring a 'larger-than-life' perspective to human presence. ",
-        links: [{label: "Progress", url:"imgs/thesis_dots.png"}, {label: "Early progress", url:"imgs/thesis_lines.png"}],
-        role: "Developer & Designer",
-        duration: "ongoing",
-        quote: { text: "visualising how people occupy space", cite: "Thesis" },
-    }
+
 ];
 
 
@@ -250,8 +251,9 @@ function buildInterruptRow(idx) {
 function makeCell(cls, project) {
   const div = document.createElement('div');
   div.className = 'grid-cell ' + cls;
-  if (project && cls == 'cell-title clickable') {
-    // div.classList.add('clickable');
+  // if (project && cls == 'cell-title clickable') {
+  if (project) {
+    div.classList.add('clickable');
     div.dataset.project = project.id;
     div.addEventListener('click', () => openModal(project));
   }
@@ -373,10 +375,7 @@ function openModal(p) {
       </span>
     </div>` : '';
 
-        // <img class="modal-hero" src="${p.img}" alt="${p.title}" loading="lazy">
-        // <div class="modal-sub">${p.sub}</div>
-        // <div class="modal-meta-item"><label>Role</label><span>${p.role}</span></div>
-        // <div class="modal-meta-item"><label>Duration</label><span>${p.duration}</span></div>
+  
 
   content.innerHTML = `
     ${tabsHTML}
