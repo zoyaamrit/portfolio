@@ -1,16 +1,20 @@
   /* ───────────── DATA ───────────── */
   const ME = {
     name: "tanvi amrit",
-    tagline: "student of computer science and fine arts.",
-    bio: "I'm passionate about working at the intersection of art and technology. My projects explore digital experiences, animation, storytelling and interactive installation.",
+    tagline: "studying creative technology.",
+    bio: "My projects explore digital experiences, animation, storytelling and interactive installation. I'm passionate about working at the intersection of art and technology. ",
     links: [
         { label: "Email", href: "mailto:tanviamrit03@gmail.com" },
         { label: "GitHub", href: "https://github.com/zoyaamrit" },
-        { label: "Resume", href: "https://drive.google.com/file/d/1pXzDk3a9wtenwQJrCU9Fqc8mO8zOGJra/view?usp=sharing" },
+        { label: "Resume", href: "imgs/resume.pdf" },
         { label: "Instagram", href: "https://www.instagram.com/wall_stories/"}
 
     ],
-  };
+    portrait: "imgs/me.png", 
+    about: "I enjoy working at intersections. I don't believe that anything exists in isolation, and my work reflects that.\n\n My projects lie at the confluence of art, design and technology. I'm particularly interested in exploring storytelling and interaction. I think creative technology will transform storytelling by opening doors for immersive experiences that enhance meaning, invite thought, and compose compelling narratives.",
+    ed: " BS Computer Science, BFA Studio Art @ Tufts. Incoming M.S. Integrated Design and Media @ NYU", 
+    };
+
 
 const PROJECTS = [
       {
@@ -52,7 +56,7 @@ const PROJECTS = [
         type: "Animation",
         year: "2026",
         tags: ["Animation", "Video Editing", "Drawing"],
-        img: "imgs/footsteps.gif",
+        img: "imgs/para.gif",
         links: [{label: "Watch Video",  url: "https://www.youtube.com/embed/5bCvHD8Lhyc?si=aJr5yYKNPsTsDYi1"}],
         desc: "A music video for Aadya Jaswal's song, Strange New Places. Through hand drawn images and text, the animated movements visualise and emulate the emotions in the song. ", 
         role: "Animator",
@@ -67,7 +71,7 @@ const PROJECTS = [
         type: "Website",
         year: "2024",
         tags: ["Javascript", "Web Design", "Story Building", "Illustration"],
-        img: "imgs/unicorn.png",
+        img: "imgs/forest.png",
         links: [{label: "Preview", url: "https://zoyaamrit.github.io/myth_narrative/"}],
         desc: "An interactive, narrative website inspired by Ray Bradbury's 'A Sound of Thunder'. The piece invites you to navigate a mythical world and adapts the narrative according to the decisions you make, eventually showing an alternate future",
         role: "Designers & Developer",
@@ -84,7 +88,6 @@ const PROJECTS = [
         links: [
             {label: "Cover", url: "imgs/cover.png"}, 
             {label: "Page", url: "imgs/page1.jpg"}, 
-            {label: "Page", url: "imgs/page2.jpg"}, 
         ],
 
         tags: ["InDesign", "Typography", "Graphic Design", "Print on Demand"],
@@ -130,10 +133,12 @@ const PROJECTS = [
 const IMAGE_BANK = [
     "imgs/cheers.gif",
     "imgs/circles.gif",
-    "imgs/icecream.gif",
     "imgs/puzzle.gif",
     "imgs/twirl.gif",
     "imgs/pasta.gif",
+    "imgs/Pixels on transparency as film.gif", 
+    "imgs/embroidered_film.gif", 
+    "imgs/experimental observation drawings.gif"
 ];
 
 shuffle(IMAGE_BANK);
@@ -184,7 +189,7 @@ function buildGrid() {
     aboutCell.innerHTML = `
         <div class="about-label">About Me</div>
         <h1>${ME.tagline}</h1>
-        <p>${ME.bio}</p>
+        <p>${ME.bio}</p> </br>
         <p>[try reloading site for a new layout]<p>
 
         <div class="links">${ME.links.map(l => `<a href="${l.href}" target="_blank" class="hoverable">${l.label}</a>`).join('')}</div>
@@ -204,12 +209,14 @@ function buildGrid() {
         const cells = buildProjectRow(p, idx);
         cells.forEach(c => wrapper.appendChild(c));
 
-        if((idx - 1) % 2 == 0) {
-            cells2 = buildInterruptRow(img_id);
-            cells2.forEach(c => wrapper.appendChild(c));
-            img_id = img_id + 2; 
+        // if((idx - 1) % 2 == 0) {
+        //     // cells2 = buildInterruptRow(img_id);
+        //     // cells2.forEach(c => wrapper.appendChild(c));
+        //     wrapper.appendChild(buildInterruptRow(img_id));
 
-        }
+        //     img_id = img_id + 1; 
+
+        // }
     });
 
     // attach hover to all clickable
@@ -218,47 +225,60 @@ function buildGrid() {
 
 function buildProjectRow(p, idx) {
 
-    const positions = [0, 1, 2];
-    shuffle(positions);
+    // const positions = [0, 1, 2];
+    // shuffle(positions);
 
-    const cells = [null, null, null];
+    // const cells = [null, null, null];
 
-    cells[positions[0]] = makeImageCell(p);
+    // cells[positions[0]] = makeImageCell(p);
+    // cells[positions[1]] = makeTitleCell(p, idx);
+    // cells[positions[2]] = makeQuoteCell(p)
+    // // cells[positions[3]] = makeBlankCell();
+    // return cells;
+
+    const positions = [0, 1]; 
+    shuffle(positions); 
+
+    const cells = [null, null]; 
+
+    cells[positions[0]] = makeImageCell(p); 
     cells[positions[1]] = makeTitleCell(p, idx);
-    cells[positions[2]] = makeQuoteCell(p)
-    // cells[positions[3]] = makeBlankCell();
-    return cells;
+
+    return cells; 
+
+
 }
 
 function buildInterruptRow(idx) {
-    const cells = [null, null, null];
+    // const cells = [null, null, null];
 
-    const positions = [0, 1, 2]; 
-    shuffle(positions); 
+    // const positions = [0, 1, 2]; 
+    // shuffle(positions); 
 
-    const imgPos = positions[0]; 
-    const blank  = positions[1]; 
-    const blank1 = positions[2]; 
+    // const imgPos = positions[0]; 
+    // const blank  = positions[1]; 
+    // const blank1 = positions[2]; 
 
-    cells[imgPos] = makeImageCellExtra(IMAGE_BANK[idx])
-    cells[blank] = makeBlankCell();
-    cells[blank1] = makeBlankCell();
+    // cells[imgPos] = makeImageCellExtra(IMAGE_BANK[idx])
+    // cells[blank] = makeBlankCell();
+    // cells[blank1] = makeBlankCell();
 
 
-    return cells;
+    return makeImageCellExtra(IMAGE_BANK[idx]);
 }
 
 function makeCell(cls, project) {
   const div = document.createElement('div');
   div.className = 'grid-cell ' + cls;
   // if (project && cls == 'cell-title clickable') {
-  if (project) {
+  if (project && cls != 'cell-quote') {
     div.classList.add('clickable');
     div.dataset.project = project.id;
     div.addEventListener('click', () => openModal(project));
   }
   return div;
 }
+
 
 function makeImageCell(p) {
   const div = makeCell('cell-image', p);
@@ -288,16 +308,14 @@ function makeTitleCell(p, idx) {
     <div class="tags">${p.tags.slice(0,3).map(t => `<span class="tag">${t}</span>`).join('')}</div>
   `;
   return div;
+
 }
+
 
 
 function makeBlankCell() {
     const div = document.createElement('div');
-    // if (Math.random() < 0.7) {
         div.className = 'grid-cell cell-blank';
-    // } else {
-    //     div.className = 'grid-cell cell-blank-acc';
-    // } 
     return div;
 }
 
@@ -444,42 +462,62 @@ document.getElementById('modal-close').addEventListener('click', closeModal);
 document.getElementById('modal-blur-bg').addEventListener('click', closeModal);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-/* ───────────── NAV ───────────── */
+
+/* ───────────── VIEW SWITCHING ───────────── */
 let currentView = 'grid';
+const VIEWS = {
+  grid:    document.getElementById('grid-view'),
+  list:    document.getElementById('list-view'),
+  gallery: document.getElementById('gallery-view'),
+};
 
-document.getElementById('nav-projects').addEventListener('click', (e) => {
-  e.preventDefault();
-  if (currentView === 'grid') {
-    document.getElementById('grid-view').classList.add('hidden');
-    document.getElementById('list-view').classList.add('active');
-    document.getElementById('nav-projects').classList.add('active');
-    document.getElementById('nav-about').classList.remove('active');
-    currentView = 'list';
-  } else {
-    document.getElementById('grid-view').classList.remove('hidden');
-    document.getElementById('list-view').classList.remove('active');
-    document.getElementById('nav-projects').classList.remove('active');
-    currentView = 'grid';
-  }
-});
-
-
-
-document.getElementById('nav-about').addEventListener('click', (e) => {
-  e.preventDefault();
-  if (currentView === 'list') {
-    document.getElementById('grid-view').classList.remove('hidden');
-    document.getElementById('list-view').classList.remove('active');
-    document.getElementById('nav-projects').classList.remove('active');
-    currentView = 'grid';
-  }
+function showView(name) {
+  VIEWS.grid.classList.toggle('hidden', name !== 'grid');
+  VIEWS.list.classList.toggle('active', name === 'list');
+  VIEWS.gallery.classList.toggle('active', name === 'gallery');
+  document.getElementById('nav-projects').classList.toggle('active', name === 'list');
+  document.getElementById('nav-projects').textContent = name === 'list' ? 'Project Grid-View' : 'Project List-View';
+  document.getElementById('nav-gallery').classList.toggle('active', name === 'gallery');
+  currentView = name;
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  document.getElementById('nav-about').classList.add('active');
-  setTimeout(() => document.getElementById('nav-about').classList.remove('active'), 1000);
-});
+}
 
-// Hover on nav links
+// function showView(name) {
+//   VIEWS.grid.classList.toggle('hidden', name !== 'grid');
+//   VIEWS.list.classList.toggle('active', name === 'list');
+//   VIEWS.gallery.classList.toggle('active', name === 'gallery');
+
+//   const projects = document.getElementById('nav-projects');
+//   const gallery  = document.getElementById('nav-gallery');
+
+//   projects.classList.toggle('active', name === 'list');
+//   gallery.classList.toggle('active', name === 'gallery');
+
+//   // relabel based on what the link will do next
+//   projects.textContent = name === 'list' ? 'Project Grid' : 'Project List';
+//   gallery.textContent  = name === 'gallery' ? 'Back' : 'Gallery';
+
+//   currentView = name;
+//   window.scrollTo({ top: 0, behavior: 'smooth' });
+// }
+
+document.getElementById('nav-projects').addEventListener('click', e => {
+  e.preventDefault();
+  showView(currentView === 'list' ? 'grid' : 'list'); 
+
+});
+document.getElementById('nav-gallery').addEventListener('click', e => {
+  e.preventDefault();
+  showView(currentView === 'gallery' ? 'grid' : 'gallery');
+});
+document.getElementById('nav-about').addEventListener('click', e => {
+  e.preventDefault();
+  openAbout(); 
+});
+document.getElementById('name-logo').addEventListener('click', () => location.reload());
 document.querySelectorAll('nav a').forEach(addHover);
+
+
 
 /* ───────────── STAGGER ANIMATION ───────────── */
 function staggerCells() {
@@ -487,9 +525,88 @@ function staggerCells() {
     cell.style.animationDelay = (i * 0.04) + 's';
   });
 }
+/* ───────────── ABOUT OVERLAY ───────────── */
+function buildAbout() {
+  const content = document.getElementById('about-content');
+  const paras = ME.about.split((/\n+/)).map(t => `</br><p>${t.trim()}</p>`).join('');
+
+
+ content.innerHTML = `
+    <div class="about-portrait"><img src="${ME.portrait}" alt="${ME.name}"></div>
+    <div class="cell-about">
+      <div class="about-label">More about me</div>
+      <h1>${ME.name}</h1>
+      ${paras}
+      <div class="links">
+        ${(ME.links || []).map(l => `<a href="${l.href}" target="_blank" rel="noopener" class="hoverable">${l.label}</a>`).join('')}
+        ${ME.email ? `<a href="mailto:${ME.email}" class="hoverable">Email</a>` : ''}
+      </div>
+      </br><p>${ME.ed}</p>
+    </div>`;
+  content.querySelectorAll('.hoverable').forEach(addHover);
+}
+
+function openAbout() {
+  document.getElementById('about-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeAbout() {
+  document.getElementById('about-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('about-close').addEventListener('click', closeAbout);
+document.getElementById('about-blur-bg').addEventListener('click', closeAbout);
+addHover(document.getElementById('about-close'));
+
+/* ───────────── GALLERY ───────────── */
+function prettyName(path) {
+  return path.split('/').pop().replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+}
+
+function buildGallery() {
+  const grid = document.getElementById('gallery-grid');
+  grid.innerHTML = '';
+  const items = (typeof GALLERY !== 'undefined' && GALLERY.length)
+    ? GALLERY
+    : IMAGE_BANK.map(src => ({ src, name: prettyName(src) }));
+
+  items.forEach((it, i) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item clickable';
+    div.innerHTML = `
+      <img src="${it.src}" alt="${it.name}" loading="lazy">
+      <div class="gi-cap">
+        <span class="gi-name">${it.name}</span>
+        <span class="gi-idx">${String(i + 1).padStart(2, '0')}</span>
+      </div>`;
+    div.addEventListener('click', () => openLightbox(it.src, it.name));
+    grid.appendChild(div);
+  });
+  grid.querySelectorAll('.clickable').forEach(addHover);
+}
+
+function openLightbox(src, alt) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src; img.alt = alt || '';
+  lb.classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-img').src = '';
+}
+document.getElementById('lightbox-bg').addEventListener('click', closeLightbox);
+document.getElementById('lightbox-img').addEventListener('click', closeLightbox);
+addHover(document.getElementById('lightbox-img'));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeAbout(); closeLightbox(); }
+});
 
 /* ───────────── INIT ───────────── */
 initLoader();
 buildGrid();
 buildList();
 staggerCells();
+buildAbout();
+buildGallery();

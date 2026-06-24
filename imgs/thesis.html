@@ -119,8 +119,11 @@ background-color: var(--accent-light);
 }
 
 @media (max-width: 900px) {
-    .panels, .ctrl-grid{
+    .panels{
         grid-template-columns: repeat(2,1fr);
+    }
+    .ctrl-grid {
+      grid-template-columns: 1fr;
     }
     
 }

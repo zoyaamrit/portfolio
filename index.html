@@ -22,8 +22,9 @@
         <div id="name-logo">tanvi amrit</div>
         <nav>
         <a href="#about" id="nav-about">About</a>
-        <a href="#projects" id="nav-projects">Projects</a>
-        </nav>
+        <a href="#gallery" id="nav-gallery">gallery</a>
+        <a href="#projects" id="nav-projects">Project List-View</a>
+      </nav>
     </header>
 
   <main>
@@ -47,6 +48,15 @@
     </div>
   </main>
 
+  <!-- Gallery View -->
+  <div id="gallery-view">
+    <div class="gallery-intro">
+      <h2>Motion &amp; Marks</h2>
+      <p>a loose collection of drawings, loops and experiments .</p>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"><!-- injected --></div>
+  </div>
+
   <!-- Modal -->
   <div id="modal-overlay" role="dialog" aria-modal="true">
     <button id="modal-close" aria-label="Close">✕</button>
@@ -56,6 +66,25 @@
     </div>
   </div>
 
-  <script src="includes/script.js"></script>
+
+  <!-- About Overlay -->
+   
+  <div id="about-overlay" role="dialog" aria-modal="true" aria-label="About">
+  <div id="about-blur-bg"></div>
+  <div id="about-box">
+    <button id="about-close" aria-label="Close">✕</button>
+    <div id="about-content"><!-- injected --></div>
+  </div>
+</div>
+
+
+  <!-- Gallery Lightbox -->
+  <div id="lightbox">
+    <div id="lightbox-bg"></div>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+    <script src="includes/script.js"></script>
+
 </body>
 </html>
