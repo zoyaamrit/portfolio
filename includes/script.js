@@ -1,17 +1,18 @@
   /* ───────────── DATA ───────────── */
   const ME = {
     name: "tanvi amrit",
-    tagline: "studying creative technology.",
-    bio: "My projects explore digital experiences, animation, storytelling and interactive installation. I'm passionate about working at the intersection of art and technology. ",
+    tagline: "creative technologist",
+    bio: "My projects encompass digital experiences, animation, storytelling and interactive installation. I'm passionate about working at the intersection of art and technology. ",
     links: [
-        { label: "Email", href: "mailto:tanviamrit03@gmail.com" },
+        { label: "Instagram", href: "https://www.instagram.com/wall_stories/"},
         { label: "GitHub", href: "https://github.com/zoyaamrit" },
         { label: "Resume", href: "imgs/resume.pdf" },
-        { label: "Instagram", href: "https://www.instagram.com/wall_stories/"}
+        { label: "Email", href: "mailto:tanviamrit03@gmail.com" }
+
 
     ],
     portrait: "imgs/me.png", 
-    about: "I enjoy working at intersections. I don't believe that anything exists in isolation, and my work reflects that.\n\n My projects lie at the confluence of art, design and technology. I'm particularly interested in exploring storytelling and interaction. I think creative technology will transform storytelling by opening doors for immersive experiences that enhance meaning, invite thought, and compose compelling narratives.",
+    about: "I enjoy working at intersections. I don't believe that anything exists in isolation, and my work reflects that.\n\n My projects lie at the confluence of art, design and technology. I'm particularly interested in exploring storytelling and interaction. I think creative technology will transform storytelling by opening doors for immersive experiences that enhance meaning, invite thought, and compose compelling narratives. \n\n As emerging technologies alter all aspects of experience, I want to be among the researchers asking “What can these technologies do, how can we push it further, and how can they help?”",
     ed: " BS Computer Science, BFA Studio Art @ Tufts. Incoming M.S. Integrated Design and Media @ NYU", 
     };
 
